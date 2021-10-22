@@ -4,6 +4,9 @@ import { FlatList, ScrollView, TextInput, TouchableNativeFeedback } from 'react-
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Carousel from 'react-native-anchor-carousel';
 // import { MaterialIcons, FontAwesome5 } from "react-native-vector-icons";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Orientation from 'react-native-orientation';
 //@ts-ignore
 import { SERVER_URL } from "@env"
@@ -78,7 +81,7 @@ export default function Home(props: any) {
                 >
                     <Image source={{ uri: item.image }} style={styles.carouselImage} />
                     <Text style={styles.carouselText}>{item.title}</Text>
-                    {/* <MaterialIcons name="library-add" size={30} color="white" style={styles.carouselIcon} /> */}
+                    <MaterialIcons name="library-add" size={30} color="white" style={styles.carouselIcon} />
                 </TouchableOpacity>
             </View>
         );
@@ -125,7 +128,7 @@ export default function Home(props: any) {
                                 style={styles.playIconContainer}
                                 onPress={()=> OpenPlayer(selectedMovie.key)}
                             >
-                                {/* <FontAwesome5 name="play" size={22} color="#987bf3" style={{ marginLeft: 4 }} /> */}
+                                <FontAwesome5 name="play" size={22} color="#987bf3" style={{ marginLeft: 4 }} />
                             </TouchableOpacity>
                         </View>
 
@@ -149,8 +152,8 @@ export default function Home(props: any) {
                     <Text style={{ color: "white", padding: 14, fontWeight: "bold" }}>{lastWatchedMovie.title}</Text>
 
                     <TouchableOpacity style={[styles.playIconContainer]} onPress={()=> OpenPlayer(lastWatchedMovie.key)}>
-                        {/* // <Icon name="play" size={24} color="#987bf3" style={{ marginLeft: 4 }}/> */}
-                        {/* <FontAwesome5 name="play" size={24} color="#987bf3" style={{ marginLeft: 4 }} /> */}
+                        {/* <Icon name="play" size={24} color="#987bf3" style={{ marginLeft: 4 }}/> */}
+                        <FontAwesome5 name="play" size={24} color="#987bf3" style={{ marginLeft: 4 }} />
                     </TouchableOpacity>
 
                 </ImageBackground>
