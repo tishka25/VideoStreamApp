@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import Orientation from 'react-native-orientation';
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from './src/screens/home';
 import Profile from './src/screens/profile';
 import Player from './src/screens/player';
@@ -47,10 +47,20 @@ function Tabs() {
     >
       <Tab.Screen
         name="Main"
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home" color={color} size={size} />
+          ),
+        }}
         component={(props)=> <Screens {...props} setTabBarVisible={setTabBarVisible}/>}
       />
       <Tab.Screen
         name="Profile"
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person-outline" color={color} size={size} />
+          ),
+        }}
         component={Profile}
       />
     </Tab.Navigator>
