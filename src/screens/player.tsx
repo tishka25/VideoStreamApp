@@ -62,14 +62,16 @@ export default function Player({ navigation, setTabBarVisible , route}) {
       <VideoPlayer
         endWithThumbnail
         thumbnail={{ uri: `${SERVER_URL}/thumbnail/` + route.params.id }}
-        video={{ uri: `${SERVER_URL}/video/` + route.params.id }}
+        // video={{ uri: `${SERVER_URL}/video/` + route.params.id }}
         ref={player}
         // videoWidth={dimensions.width}
         // videoHeight={dimensions.height - 200}
 
         fullscreen
         fullscreenOrientation="landscape"
-      />
+      >
+        asdasd
+      </VideoPlayer>
     </View>
   );
 }

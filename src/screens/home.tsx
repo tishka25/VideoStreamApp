@@ -10,6 +10,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Orientation from 'react-native-orientation';
 //@ts-ignore
 import { SERVER_URL } from "@env"
+import CarouselView from '../components/CarouselView';
 
 
 export default function Home(props: any) {
@@ -62,86 +63,10 @@ export default function Home(props: any) {
     }
 
 
-    //@ts-ignore
-    const renderItem = ({ item, index }) => {
-        return (
-            <View style={{ flex: 1 }}>
-                <TouchableOpacity
-                    style={{
-                        width: "100%",
-                        height: "100%"
-                    }}
-                    onPress={() => {
-                        if(carouselRef != null){
-                            //@ts-ignore
-                            carouselRef.current.scrollToIndex(index);
-                            setSelectedMovie(item);
-                        }
-                    }}
-                >
-                    <Image source={{ uri: item.image }} style={styles.carouselImage} />
-                    <Text style={styles.carouselText}>{item.title}</Text>
-                    <MaterialIcons name="library-add" size={30} color="white" style={styles.carouselIcon} />
-                </TouchableOpacity>
-            </View>
-        );
-    }
-
-
     return (
         <ScrollView style={{ backgroundColor: "#15152d" }}>
-            <View style={styles.carouselContentContainer}>
-                <View style={{ backgroundColor: "#000", ...StyleSheet.absoluteFill as {} }}>
-                    <ImageBackground
-                        source={{ uri: selectedMovie.image }}
-                        style={styles.imageBackground}
-                        blurRadius={10}
-                    >
-                        <View style={styles.searchBoxContainer}>
-                            <TextInput placeholder="Search" placeholderTextColor="#666" style={styles.searchBox} />
-                        </View>
-                        <Text style={{
-                            color: "white", fontSize: 24, fontWeight: "bold", marginLeft: 10, marginVertical: 10
-                        }}>
-                            Най-гледани
-                        </Text>
-
-                        <View style={styles.carouselContainerView}>
-                            <Carousel
-                                style={styles.carousel}
-                                data={gallery}
-                                renderItem={renderItem}
-                                itemWidth={200}
-                                containerWidth={width - 20}
-                                separatorWidth={0}
-                                ref={carouselRef}
-                                inActiveOpacity={0.4}
-                            />
-                        </View>
-
-                        <View style={styles.movieInfoContainer}>
-                            <View style={{ justifyContent: "center" }}>
-                                <Text style={styles.movieName} >{selectedMovie.title}</Text>
-                                <Text style={styles.movieStat}>{selectedMovie.released}</Text>
-                            </View>
-                            <TouchableOpacity
-                                style={styles.playIconContainer}
-                                onPress={()=> OpenPlayer(selectedMovie.key)}
-                            >
-                                <FontAwesome5 name="play" size={22} color="#987bf3" style={{ marginLeft: 4 }} />
-                            </TouchableOpacity>
-                        </View>
-
-                        <View style={{ paddingHorizontal: 14, marginBottom: 14 }}>
-                            <Text style={{ color: "white", opacity: 0.8, lineHeight: 20 }}>{selectedMovie.desc}</Text>
-                        </View>
-
-                    </ImageBackground>
-                </View>
-            </View>
-
+            <CarouselView/>
             {/* Continue to watch section */}
-
             <View style={{ marginHorizontal: 14 }}>
                 <Text style={{ color: "white", fontSize: 24, fontWeight: "bold", marginBottom: 24, marginTop: 24 }}>Continue Watching</Text>
                 <ImageBackground
@@ -192,89 +117,6 @@ export default function Home(props: any) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    carouselContentContainer: {
-        flex: 1,
-        backgroundColor: "#000",
-        height: 720,
-        paddingHorizontal: 14,
-    },
-    imageBackground: {
-        flex: 1,
-        // height: null,
-        // width: null,
-        opacity: 1,
-        justifyContent: "flex-start"
-    },
-    searchBoxContainer: {
-        backgroundColor: "white",
-        elevation: 10,
-        borderRadius: 4,
-        marginVertical: 14,
-        width: "95%",
-        flexDirection: "row",
-        alignSelf: "center"
-    },
-    searchBox: {
-        padding: 12,
-        paddingLeft: 20,
-        fontSize: 16
-    },
-    carouselContainerView: {
-        width: "100%",
-        height: 350,
-        justifyContent: "center",
-        alignItems: "center"
-    },
-    carousel: {
-        flex: 1,
-        overflow: "visible"
-    },
-    carouselImage: {
-        width: 200,
-        height: 320,
-        borderRadius: 10,
-        alignSelf: "center",
-        backgroundColor: "rgba(0,0,0,0.9)"
-    },
-    carouselText: {
-        paddingLeft: 14,
-        color: "white",
-        position: "absolute",
-        bottom: 10,
-        left: 2,
-        fontWeight: "bold"
-    },
-    carouselIcon: {
-        position: "absolute",
-        top: 15,
-        right: 15
-    },
-    movieInfoContainer: {
-        flexDirection: "row",
-        marginTop: 16,
-        justifyContent: "space-between",
-        width: Dimensions.get("window").width - 14
-    },
-    movieName: {
-        paddingLeft: 14,
-        color: "white",
-        fontWeight: "bold",
-        fontSize: 20,
-        marginBottom: 6
-    },
-    movieStat: {
-        paddingLeft: 14,
-        color: "white",
-        fontWeight: "bold",
-        fontSize: 15,
-        opacity: 0.8
-    },
     playIconContainer: {
         backgroundColor: "#212121",
         padding: 18,
