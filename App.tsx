@@ -12,6 +12,7 @@ import Player from './src/screens/player';
 import { RootStackParamList, RootTabParamList } from './src/types';
 import { navigationRef } from './src/rootNavigation';
 import Login from './src/screens/login';
+import Launcher from './src/screens/launcher';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -21,18 +22,22 @@ const Stack = createStackNavigator<RootStackParamList>();
 function Screens(props: any) {
   return (
     <Stack.Navigator
-      initialRouteName="Login"
+      initialRouteName="Launcher"
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen
-        name="Home"
-        component={(props: any)=> <Home {...props} />}
+      <Stack.Screen 
+        name="Launcher"
+        component={Launcher}
       />
       <Stack.Screen 
         name="Login"
         component={Login}
+      />
+      <Stack.Screen
+        name="HomeTabs"
+        component={Tabs}
       />
       <Stack.Screen
         name="Player"
@@ -62,7 +67,8 @@ function Tabs() {
             <Ionicons name="home" color={color} size={size} />
           ),
         }}
-        component={(props)=> <Screens {...props} setTabBarVisible={setTabBarVisible}/>}
+        // component={(props)=> <Screens {...props}/>}
+        component={Home}
       />
       <Tab.Screen
         name="Profile"
@@ -83,7 +89,8 @@ export default function App() {
 
   return (
     <NavigationContainer ref={navigationRef}>
-      <Tabs></Tabs>
+      {/* <Tabs></Tabs> */}
+      <Screens/>
     </NavigationContainer>
   );
 }

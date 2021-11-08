@@ -1,6 +1,7 @@
 export type RootStackParamList = {
+    Launcher: any,
     Login: any,
-    Home: any,
+    HomeTabs: any,
     Player: {id: string} | undefined
 }
 
