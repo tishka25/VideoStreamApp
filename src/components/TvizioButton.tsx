@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Pressable, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
+import { BaseButtonProps } from 'react-native-gesture-handler';
 
 interface Props {
     onPress?: ()=>void;

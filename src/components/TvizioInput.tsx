@@ -1,19 +1,23 @@
 
 import React from 'react';
-import { Pressable, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
+import { KeyboardType, StyleProp, StyleSheet, TextInputProps, ViewStyle } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
 interface Props {
     title: string;
     customStyle?: StyleProp<ViewStyle>
+    type?: KeyboardType
 }
 
-export default function TvizioInput(props: Props){
+export default function TvizioInput(props: Props & TextInputProps){
     return (
         <TextInput 
+            {...props}
             style={[styles.container, props.customStyle]} 
             placeholder={props.title}
             placeholderTextColor={"white"}
+            keyboardType={props.type}
+            maxLength={props.maxLength}
         ></TextInput>
     );
 }

@@ -1,4 +1,5 @@
 import datetime from "./datetime";
+import memory from "./memory";
 import network from "./network";
 var md5 = require('md5');
 
@@ -55,9 +56,9 @@ export default new class User {
     }
 
     async autoSignIn(){
-        // const info = await this.getInfo();
-        // if(info)
-        //     return await this.signIn(info.code);
+        const info = await this.getInfo();
+        if(info)
+            return await this.signIn(info.code);
         return false;
     }
 
@@ -75,7 +76,7 @@ export default new class User {
             if(userResponse){
                 userResponse["activeSubscription"] = this.checkSubscriptionAtStartup(userResponse);
                 Object.assign(this.userDTO, userResponse);
-                // await memory.save("user", userResponse);
+                await memory.save("user", userResponse);
                 return true;
             }
             return false;
@@ -87,12 +88,12 @@ export default new class User {
     async signOut(){
         await network.userSignOut();
         //Remove local storage
-        // await memory.clearAll();
+        await memory.clearAll();
         //
     }
 
     async getInfo(){
-        // return await memory.load("user");
+        return await memory.load("user");
     }
 
     get(){
@@ -113,13 +114,12 @@ export default new class User {
 
     async setPrefferedQuality(index: number | string){
         this.userDTO.quality = index;
-        // await memory.save("preffered-quality", index);
+        await memory.save("preffered-quality", index);
     }
 
     async getPrefferedQuality(){
         if(this.userDTO.quality == null || this.userDTO.quality == undefined){
-            // const q = await memory.load("preffered-quality") || 0;
-            const q = 0;
+            const q = await memory.load("preffered-quality") || 0;
             await this.setPrefferedQuality(q);
             return q;
         }else{
