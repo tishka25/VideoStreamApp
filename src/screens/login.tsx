@@ -2,18 +2,24 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
 import TvizioButton from '../components/TvizioButton';
 import TvizioInput from '../components/TvizioInput';
 import { RootStackParamList } from '../types';
 import user from '../utils/user';
+import * as RootNavitaion from "../rootNavigation";
+
 
 
 type Props = NativeStackScreenProps<RootStackParamList, "Login">
 export default function Login(props: Props){
     const [loginCode, setLoginCode] = useState("336378125321");
-    const onLogin = ()=>{
-        user.signIn(loginCode);
+    const [isLoading, setLoading] = useState(false);
+    const onLogin = async ()=>{
+        setLoading(true);
+        await user.signIn(loginCode);
+        setLoading(false);
+        // Reset navigation from current point
+        RootNavitaion.reset('HomeTabs');
     }
 
     return(

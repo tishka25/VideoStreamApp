@@ -41,7 +41,7 @@ function Screens(props: any) {
       />
       <Stack.Screen
         name="Player"
-        component={(props: any)=> <Player {...props} />}
+        component={Player}
       />
     </Stack.Navigator>
   )

@@ -8,11 +8,9 @@ import * as RootNavitaion from "../rootNavigation";
 type Props = NativeStackScreenProps<RootStackParamList, "Launcher">
 export default function Launcher(props: Props){
 
-    useEffect(()=>{
-        setTimeout(()=>{
-            RootNavitaion.navigate("Login");
-        }, 1000);
-    }, []);
+    setTimeout(()=>{
+        RootNavitaion.navigate("Login");
+    }, 1000);
 
     return(
         <View>

@@ -1,9 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Dimensions, Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { FlatList, ScrollView, TextInput, TouchableNativeFeedback } from 'react-native-gesture-handler';
-import { TouchableOpacity } from 'react-native-gesture-handler'
 //@ts-ignore
-import Carousel from 'react-native-anchor-carousel';
 // import { MaterialIcons, FontAwesome5 } from "react-native-vector-icons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -12,12 +10,18 @@ import Orientation from 'react-native-orientation';
 //@ts-ignore
 import { SERVER_URL } from "@env"
 import CarouselView from '../components/CarouselView';
+import user from '../utils/user';
 
 
 export default function Home(props: any) {
     Orientation.lockToPortrait();
 
-    const [user, setUser] = useState();
+    useEffect(()=>{
+        const _userInfo = user.get();
+        setUserInfo(_userInfo);
+    });
+
+    const [userInfo, setUserInfo] = useState();
 
 
     const [gallery, setgallery] = useState([

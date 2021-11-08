@@ -9,3 +9,6 @@ export type RootTabParamList = {
     Main: any,
     Profile: any
 }
+
+export type RootNavigationScreen = keyof (RootStackParamList & RootTabParamList);
+export type RootNavigationParam = RootStackParamList & RootTabParamList;
