@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Dimensions, Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { FlatList, ScrollView, TextInput, TouchableNativeFeedback } from 'react-native-gesture-handler';
 import { TouchableOpacity } from 'react-native-gesture-handler'
+//@ts-ignore
 import Carousel from 'react-native-anchor-carousel';
 // import { MaterialIcons, FontAwesome5 } from "react-native-vector-icons";
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -14,7 +15,9 @@ import CarouselView from '../components/CarouselView';
 
 
 export default function Home(props: any) {
-    Orientation.lockToPortrait()
+    Orientation.lockToPortrait();
+
+    const [user, setUser] = useState();
 
 
     const [gallery, setgallery] = useState([
@@ -61,7 +64,7 @@ export default function Home(props: any) {
         <ScrollView style={{ backgroundColor: "#15152d" }}>
             <CarouselView/>
             {/* Continue to watch section */}
-            <View style={{ marginHorizontal: 14 }}>
+            {/* <View style={{ marginHorizontal: 14 }}>
                 <Text style={{ color: "white", fontSize: 24, fontWeight: "bold", marginBottom: 24, marginTop: 24 }}>Continue Watching</Text>
                 <ImageBackground
                     source={{ uri: lastWatchedMovie.image }}
@@ -71,7 +74,6 @@ export default function Home(props: any) {
                     <Text style={{ color: "white", padding: 14, fontWeight: "bold" }}>{lastWatchedMovie.title}</Text>
 
                     <TouchableOpacity style={[styles.playIconContainer]} onPress={()=> OpenPlayer(lastWatchedMovie.key)}>
-                        {/* <Icon name="play" size={24} color="#987bf3" style={{ marginLeft: 4 }}/> */}
                         <FontAwesome5 name="play" size={24} color="#987bf3" style={{ marginLeft: 4 }} />
                     </TouchableOpacity>
 
@@ -93,18 +95,12 @@ export default function Home(props: any) {
                             <TouchableOpacity style={{ marginRight: 20 }} onPress={() => OpenPlayer(item.key)}>
                                 <Image source={{ uri: item.image }} style={{ width: 200, height: 300 }} />
                                 <View style={{ position: "absolute", height: 5, width: "100%", backgroundColor: "#02ad94", opacity: 0.8 }} ></View>
-                                {/* <FontAwesome5 name="play" size={38} color="#fff" style={{
-                                    position: "absolute",
-                                    top: "45%",
-                                    left: "45%",
-                                    opacity: 0.9
-                                }} /> */}
                             </TouchableOpacity>
                         );
                     }}
                 />
 
-            </View>
+            </View> */}
 
         </ScrollView>
     );

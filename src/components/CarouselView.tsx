@@ -1,32 +1,24 @@
 import React, { useRef, useState } from "react";
 import {
     Dimensions,
-    Image,
     ImageBackground,
     StyleSheet,
     Text,
     View,
 } from "react-native";
 import {
-    FlatList,
-    ScrollView,
     TextInput,
-    TouchableNativeFeedback,
 } from "react-native-gesture-handler";
-import { TouchableOpacity } from "react-native-gesture-handler";
+//@ts-ignore
 import Carousel from "react-native-anchor-carousel";
 // import { MaterialIcons, FontAwesome5 } from "react-native-vector-icons";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Orientation from "react-native-orientation";
 //@ts-ignore
 import { SERVER_URL } from "@env";
 import DescriptionBox from "./DescriptionBox";
 import CarouselItem from "./CarouselItem";
 
 interface Props {
-    
+
 }
 
 export default function CarouselView(props: Props) {
