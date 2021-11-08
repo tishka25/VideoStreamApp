@@ -9,21 +9,30 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from './src/screens/home';
 import Profile from './src/screens/profile';
 import Player from './src/screens/player';
+import { RootStackParamList, RootTabParamList } from './src/types';
+import { navigationRef } from './src/rootNavigation';
+import Login from './src/screens/login';
 
-const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator<RootTabParamList>();
+const Stack = createStackNavigator<RootStackParamList>();
+
+
 
 function Screens(props: any) {
   return (
     <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="Login"
       screenOptions={{
-        headerShown: false
+        headerShown: false,
       }}
     >
       <Stack.Screen
         name="Home"
         component={(props: any)=> <Home {...props} />}
+      />
+      <Stack.Screen 
+        name="Login"
+        component={Login}
       />
       <Stack.Screen
         name="Player"
@@ -39,11 +48,12 @@ function Tabs() {
   return (
     <Tab.Navigator
       initialRouteName="Main"
-      tabBarOptions={{
-        activeTintColor: "#987bf3",
-        inactiveTintColor: "#dedede",
-        style: { backgroundColor: "#151415", padding: 4 }
-      }}
+      screenOptions={{
+          tabBarActiveTintColor: '#987bf3',
+          tabBarInactiveTintColor: '#dedede',
+          tabBarStyle: { backgroundColor: "#151415", padding: 4 },
+          headerShown: false
+        }}
     >
       <Tab.Screen
         name="Main"
@@ -72,7 +82,7 @@ export default function App() {
   Orientation.lockToPortrait()
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <Tabs></Tabs>
     </NavigationContainer>
   );
