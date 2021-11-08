@@ -48,14 +48,8 @@ export default function Home(props: any) {
         },
     ]);
 
-    const [selectedMovie, setSelectedMovie] = useState(gallery[0]);
 
     const [lastWatchedMovie, setLastMovie] = useState(gallery[0]);
-
-
-    const carouselRef = useRef(null);
-
-    const { width, height } = Dimensions.get("window");
 
 
     const OpenPlayer = (id: string)=>{
