@@ -17,8 +17,17 @@ import { SERVER_URL } from "@env";
 import DescriptionBox from "./DescriptionBox";
 import CarouselItem from "./CarouselItem";
 
-interface Props {
 
+export interface ICarouselViewItem {
+    imageSrc: string;
+    title: string;
+    date: string;
+    description: string;
+}
+
+interface Props {
+    name: string
+    items: ICarouselViewItem[]
 }
 
 export default function CarouselView(props: Props) {
@@ -57,7 +66,7 @@ export default function CarouselView(props: Props) {
             key: "3",
         },
     ]);
-    const [selectedMovie, setSelectedMovie] = useState(gallery[0]);
+    const [selectedMovie, setSelectedMovie] = useState(props.items[0]);
 
     const carouselRef = useRef(null);
     const { width, height } = Dimensions.get("window");
@@ -74,7 +83,7 @@ export default function CarouselView(props: Props) {
                     }
                 }}
                 title={item.title}
-                imageSrc={item.image}
+                imageSrc={item.imageSrc}
             />
         );
     };
@@ -85,23 +94,16 @@ export default function CarouselView(props: Props) {
                 style={{ backgroundColor: "#000", ...(StyleSheet.absoluteFill as {}) }}
             >
                 <ImageBackground
-                    source={{ uri: selectedMovie.image }}
+                    source={{ uri: selectedMovie.imageSrc }}
                     style={styles.imageBackground}
                     blurRadius={10}
                 >
-                    <View style={styles.searchBoxContainer}>
-                        <TextInput
-                            placeholder="Search"
-                            placeholderTextColor="#666"
-                            style={styles.searchBox}
-                        />
-                    </View>
-                    <Text style={styles.header}>Най-гледани</Text>
+                    <Text style={styles.header}>{props.name}</Text>
 
                     <View style={styles.carouselContainerView}>
                         <Carousel
                             style={styles.carousel}
-                            data={gallery}
+                            data={props.items}
                             renderItem={renderItem}
                             itemWidth={200}
                             containerWidth={width - 20}
@@ -112,8 +114,8 @@ export default function CarouselView(props: Props) {
                     </View>
 
                     <DescriptionBox
-                        date={selectedMovie.released}
-                        description={selectedMovie.desc}
+                        date={selectedMovie.date}
+                        description={selectedMovie.description}
                         title={selectedMovie.title}
                     />
                    
@@ -131,16 +133,10 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginVertical: 10,
     },
-    container: {
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center",
-    },
     carouselContentContainer: {
         flex: 1,
         backgroundColor: "#000",
-        height: 720,
+        height: 400,
         paddingHorizontal: 14,
     },
     imageBackground: {
@@ -150,74 +146,14 @@ const styles = StyleSheet.create({
         opacity: 1,
         justifyContent: "flex-start",
     },
-    searchBoxContainer: {
-        backgroundColor: "white",
-        elevation: 10,
-        borderRadius: 4,
-        marginVertical: 14,
-        width: "95%",
-        flexDirection: "row",
-        alignSelf: "center",
-    },
-    searchBox: {
-        padding: 12,
-        paddingLeft: 20,
-        fontSize: 16,
-    },
     carouselContainerView: {
         width: "100%",
-        height: 350,
+        height: 140,
         justifyContent: "center",
         alignItems: "center",
     },
     carousel: {
         flex: 1,
         overflow: "visible",
-    },
-    carouselImage: {
-        width: 200,
-        height: 320,
-        borderRadius: 10,
-        alignSelf: "center",
-        backgroundColor: "rgba(0,0,0,0.9)",
-    },
-    carouselText: {
-        paddingLeft: 14,
-        color: "white",
-        position: "absolute",
-        bottom: 10,
-        left: 2,
-        fontWeight: "bold",
-    },
-    movieInfoContainer: {
-        flexDirection: "row",
-        marginTop: 16,
-        justifyContent: "space-between",
-        width: Dimensions.get("window").width - 14,
-    },
-    movieName: {
-        paddingLeft: 14,
-        color: "white",
-        fontWeight: "bold",
-        fontSize: 20,
-        marginBottom: 6,
-    },
-    movieStat: {
-        paddingLeft: 14,
-        color: "white",
-        fontWeight: "bold",
-        fontSize: 15,
-        opacity: 0.8,
-    },
-    playIconContainer: {
-        backgroundColor: "#212121",
-        padding: 18,
-        borderRadius: 40,
-        justifyContent: "center",
-        alignSelf: "center",
-        elevation: 10,
-        borderWidth: 4,
-        borderColor: "rgba(2,173,148,0.2)",
-        marginBottom: 14,
     },
 });

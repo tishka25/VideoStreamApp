@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     },
     movieInfoContainer: {
         flexDirection: "row",
-        marginTop: 16,
+        marginTop: 0,
         justifyContent: "space-between",
         width: Dimensions.get("window").width - 14,
     },
