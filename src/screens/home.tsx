@@ -14,6 +14,8 @@ import user from '../utils/user';
 import network from '../utils/network';
 import LoadingIndicator from '../components/LoadingIndicator';
 import { getScreenshotUrl } from '../utils/utils';
+import LiveChannelList, { ILiveChannelListItem } from '../components/LiveChannelList';
+import { BASE_URL } from '../utils/constants';
 
 
 export default function Home(props: any) {
@@ -24,11 +26,13 @@ export default function Home(props: any) {
     const [loading, setLoading] = useState(true);
 
     const [historyList, setHistoryList] = useState<ICarouselViewItem[]>([]);
+    const [liveList, setLiveList] = useState<ILiveChannelListItem[]>([]);
 
     // const [lastWatchedMovie, setLastMovie] = useState(gallery[0]);
 
     useEffect(()=>{
         (async()=>{
+            // Load history
             const _history = await network.getHistory();
             console.log("History", _history);
             const items: ICarouselViewItem[] = _history.map((element: any)=>{
@@ -40,6 +44,16 @@ export default function Home(props: any) {
                 }
             });
             setHistoryList(items);
+            //
+            const _liveList = await network.getChannels();
+            setLiveList(_liveList.map((item: any)=>{
+                return {
+                    imageSrc: `${BASE_URL}${item.background}`,
+                    logoSrc: `${BASE_URL}${item.logo}`,
+                    channelName: item.chName,
+                    currentShowName: item.name
+                }
+            }));
             setLoading(false);
         })()
     },[])
@@ -67,21 +81,8 @@ export default function Home(props: any) {
                     name="Последно гледани"
                     items={historyList}
                 />
-                <FlatList
-                    style={{ marginBottom: 30 }}
-                    data={historyList}
-                    renderItem={({ item }) => {
-                        return (
-                            <TouchableOpacity style={{ marginRight: 20 }} 
-                            // onPress={() => OpenPlayer(item.key)}
-                            >
-                                <Image source={{ uri: item.imageSrc }} style={{ width: 300, height: 200 }} />
-                                <View style={{ position: "absolute", height: 5, width: "100%", backgroundColor: "#02ad94", opacity: 0.8 }} ></View>
-                            </TouchableOpacity>
-                        );
-                    }}
-                />
-                </View>
+                <LiveChannelList items={liveList}/>
+            </View>
             }
             
             {/* Continue to watch section */}
