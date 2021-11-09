@@ -19,7 +19,6 @@ interface Props {
 }
 
 export default function LiveChannelList(props: Props) {
-    const [selectedIndex, setSelectedIndex] = useState<number>(-1);
     return (
         <FlatList
                     style={{ marginBottom: 30 }}
@@ -28,8 +27,6 @@ export default function LiveChannelList(props: Props) {
                         return (
                             <LiveChannelListItem 
                                 {...item} 
-                                selected={index === selectedIndex} 
-                                onPress={()=> setSelectedIndex(index)}
                             />
                         );
                     }}

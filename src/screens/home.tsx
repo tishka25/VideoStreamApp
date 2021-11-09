@@ -52,7 +52,11 @@ export default function Home(props: any) {
                     imageSrc: `${BASE_URL}${item.background}`,
                     logoSrc: `${BASE_URL}${item.logo}`,
                     channelName: item.chName,
-                    currentShowName: item.name
+                    currentShowName: item.name,
+                    nextShowName: item.next_name,
+                    elapsed: item.elapsed,
+                    start: item.start,
+                    startNext: item.start_next,
                 }
             }));
             setLoading(false);

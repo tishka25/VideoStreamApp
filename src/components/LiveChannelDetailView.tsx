@@ -1,25 +1,31 @@
 import React, { useState } from "react";
-import { Image, Modal, StyleSheet, Text, View } from "react-native";
+import { Dimensions, ImageBackground, Modal, StyleSheet, Text, View } from "react-native";
 import CloseIcon from "./CloseIcon";
 import { ILiveChannelListItem } from "./LiveChannelListItem";
 import PlayIcon from "./PlayIcon";
+import Image from 'react-native-scalable-image';
+import CurrentShow from "./CurrentShow";
 
-export default function LiveChannelDetailView(props: ILiveChannelListItem & { onPress?: ()=>void, visible?:boolean }){
-    const [closeModal, setCloseModal] = useState(props.visible);
-    const modalVisible = !closeModal ?  props.visible : false
+export default function LiveChannelDetailView(props: ILiveChannelListItem & { onClose?: () => void, visible?: boolean }) {
     return (
-        <Modal 
-            visible={modalVisible}
+        <Modal
+            visible={props.visible}
             animationType="fade"
-            transparent 
-            onRequestClose={()=> setCloseModal(true) }
+            transparent
+            onRequestClose={props.onClose}
         >
             <View style={styles.modalView}>
                 <View style={styles.channelListItemDetailContainer}>
-                    <CloseIcon style={styles.closeIcon} onPress={() => setCloseModal(true) }/>
-                    <Image source={{ uri: props.imageSrc}} resizeMode="contain" />
-                    <Text style={{ color: "white", marginBottom: 8 }}>{props.currentShowName}</Text>
-                    <PlayIcon/>
+                    <ImageBackground source={{ uri: props.imageSrc }} resizeMode="cover" style={styles.imageBackground}>
+                        <CloseIcon style={styles.closeIcon} onPress={props.onClose} />
+                        <PlayIcon />
+                    </ImageBackground>
+                    <CurrentShow 
+                        name={props.currentShowName} 
+                        date={`${props.start} - ${props.startNext}`} 
+                        logoSrc={props.logoSrc}
+                    />
+                    {/* <CurrentShow name={props.nextShowName} date={"22:30"} /> */}
                 </View>
             </View>
         </Modal>
@@ -28,40 +34,56 @@ export default function LiveChannelDetailView(props: ILiveChannelListItem & { on
 
 const styles = StyleSheet.create({
     channelListItemDetailContainer: {
-        width: "90%",
+        width: "95%",
         height: "95%",
         backgroundColor: "black",
         elevation: 5,
-        borderRadius: 20,
+        borderRadius: 8,
         alignItems: "center",
+        justifyContent: "flex-start",
+        overflow: "hidden",
         shadowColor: "#000",
         shadowOffset: {
-          width: 0,
-          height: 2
+            width: 0,
+            height: 2
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
     },
     channelListItemTouchableContainer: {
         width: "100%",
-        flex:1,
+        flex: 1,
         flexDirection: "row"
     },
-    modalView:{
+    modalView: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        alignContent: "center"
+        alignContent: "center",
+        zIndex: 100,
     },
     closeIcon: {
         position: 'absolute',
         right: 8,
         top: 8,
-        zIndex:999
+        zIndex: 999,
+        backgroundColor: "#00000080",
+        borderRadius: 64
     },
     imageBackground: {
         width: "100%",
-        height: undefined,
-        aspectRatio: 1,
+        height: 200,
+        justifyContent: "center"
+    },
+    row: {
+        flex: 1,
+        flexDirection: "row"
+    },
+    col: {
+        flex: 1,
+        flexDirection: "column"
+    },
+    text: {
+        color: "white"
     }
 });

@@ -6,6 +6,7 @@ import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5"
 interface Props {
     style?: ViewStyle;
     onPress?: ()=>void;
+    size?: number;
 }
 
 export default function CloseIcon(props: Props) {
@@ -15,9 +16,8 @@ export default function CloseIcon(props: Props) {
             <FontAwesome5Icon
                 name="times-circle"
                 onPress={props.onPress}
-                size={28}
+                size={props.size || 32}
                 color="#987bf3"
-                style={{ marginLeft: 4 }}
                 />
         </TouchableOpacity>
         </View>

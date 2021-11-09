@@ -16,13 +16,24 @@ export interface ILiveChannelListItem {
     logoSrc: string;
     channelName: string;
     currentShowName: string;
+    nextShowName: string;
+    elapsed: number;
+    start: string;
+    startNext: string;
 }
 
-export function LiveChannelListItem(props: ILiveChannelListItem & { onPress?: ()=>void, selected?: boolean }) {
+export function LiveChannelListItem(props: ILiveChannelListItem & { onPress?: ()=>void }) {
+    const [selected, setSelected] = useState(false);
+
+    function handlePress(){
+        setSelected(true);
+        if(props.onPress)
+            props.onPress()
+    }
 
     return (
         <TouchableOpacity style={styles.channelListItemTouchableContainer} 
-            onPress={props.onPress}
+            onPress={handlePress}
         >
             <Image source={{ uri: props.imageSrc }} style={styles.channelListItemBackground} resizeMode="contain"/>
             <View style={styles.channelListItemSeparator} ></View>
@@ -30,7 +41,7 @@ export function LiveChannelListItem(props: ILiveChannelListItem & { onPress?: ()
                 <Image source={{ uri: props.logoSrc }} style={styles.channelListItemLogo} resizeMode="contain"/>
                 <Text style={{ color: "white", marginBottom: 8 }}>{props.channelName}</Text>
             </View>
-            <LiveChannelDetailView {...props} visible={props.selected}/>
+            <LiveChannelDetailView {...props} visible={selected} onClose={()=>setSelected(false)}/>
         </TouchableOpacity>
     )
 }
