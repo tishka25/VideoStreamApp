@@ -17,7 +17,7 @@ export default new class Memory {
                 throw "Error";
             return JSON.parse(str);
         } catch (error) {
-            console.error("Could not parse key:", key);
+            console.log("Could not parse key:", key);
             return null;
         }
     }
@@ -26,7 +26,7 @@ export default new class Memory {
         try {
             return await AsyncStorage.removeItem(key);
         } catch (error) {
-            console.error("Could not parse delete:", key);
+            console.log("Could not parse delete:", key);
             return null;
         }
     }
@@ -35,7 +35,7 @@ export default new class Memory {
         try {
             return await AsyncStorage.clear();
         } catch (error) {
-            console.error("Could not clear local storage", error);
+            console.log("Could not clear local storage", error);
             return null;
         }
     }

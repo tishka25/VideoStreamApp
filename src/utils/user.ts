@@ -50,7 +50,7 @@ export default new class User {
             subriptionTill.setHours(23, 59, 59);
             return (datetime.get() < subriptionTill);
         } catch (error) {
-            console.error(error);
+            console.log(error);
             return false;
         }
     }

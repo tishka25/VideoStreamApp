@@ -23,7 +23,7 @@ export default new class Network{
                     resolve(parse ? JSON.parse(xhr.response): xhr);
                 } 
                 else {
-                    console.error(xhr.responseText);
+                    console.log(xhr.responseText);
                     reject({status: xhr.status, responseText: xhr.responseText});
                 }
             };
@@ -192,7 +192,7 @@ export default new class Network{
                 else
                     throw new Error("No network connection");
             } catch (error) {
-                console.error(error);
+                console.log(error);
                 // navigation.showNetworkTryAgainModal(onRetry);
             }
         });
