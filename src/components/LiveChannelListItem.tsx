@@ -1,0 +1,48 @@
+import React, { useState } from "react";
+import {
+    Image,
+    Modal,
+    StyleSheet,
+    Text,
+    View,
+} from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import CloseIcon from "./CloseIcon";
+import LiveChannelDetailView from "./LiveChannelDetailView";
+import PlayIcon from "./PlayIcon";
+
+export interface ILiveChannelListItem {
+    imageSrc: string;
+    logoSrc: string;
+    channelName: string;
+    currentShowName: string;
+}
+
+export function LiveChannelListItem(props: ILiveChannelListItem & { onPress?: ()=>void, selected?: boolean }) {
+
+    return (
+        <TouchableOpacity style={styles.channelListItemTouchableContainer} 
+            onPress={props.onPress}
+        >
+            <Image source={{ uri: props.imageSrc }} style={styles.channelListItemBackground} resizeMode="contain"/>
+            <View style={styles.channelListItemSeparator} ></View>
+            <View style={styles.channelListItemContainer}>
+                <Image source={{ uri: props.logoSrc }} style={styles.channelListItemLogo} resizeMode="contain"/>
+                <Text style={{ color: "white", marginBottom: 8 }}>{props.channelName}</Text>
+            </View>
+            <LiveChannelDetailView {...props} visible={props.selected}/>
+        </TouchableOpacity>
+    )
+}
+
+const styles = StyleSheet.create({
+    channelListItemBackground: { width: 214, height: 120},
+    channelListItemLogo: {width: undefined, height: 64, aspectRatio: 1, marginTop: 8},
+    channelListItemSeparator: { position: "absolute", height: 5, width: "100%", backgroundColor: "#02ad94", opacity: 0.8 },
+    channelListItemTouchableContainer: {
+        width: "100%",
+        flex:1,
+        flexDirection: "row"
+    },
+    channelListItemContainer: { flex:1, justifyContent: "space-between", alignItems: "center" , width: "100%"}
+});

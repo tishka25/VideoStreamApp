@@ -13,9 +13,10 @@ import CarouselView, { ICarouselViewItem } from '../components/CarouselView';
 import user from '../utils/user';
 import network from '../utils/network';
 import LoadingIndicator from '../components/LoadingIndicator';
-import { getScreenshotUrl } from '../utils/utils';
-import LiveChannelList, { ILiveChannelListItem } from '../components/LiveChannelList';
+import { getPrettyDateString, getScreenshotUrl } from '../utils/utils';
+import LiveChannelList from '../components/LiveChannelList';
 import { BASE_URL } from '../utils/constants';
+import { ILiveChannelListItem } from '../components/LiveChannelListItem';
 
 
 export default function Home(props: any) {
@@ -39,7 +40,7 @@ export default function Home(props: any) {
                 return {
                     imageSrc: getScreenshotUrl(element.cid, element.bid),
                     title: "",
-                    date: `${element.date} ${element.time}`,
+                    date: getPrettyDateString(element.date, true, false, element.time),
                     description: element.name
                 }
             });

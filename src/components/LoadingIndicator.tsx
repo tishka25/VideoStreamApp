@@ -8,15 +8,17 @@ interface Props {
 export default function LoadingIndicator(props: Props){
     
     return (
-        <ActivityIndicator size="large" color="#0000ff" style={styles.container}/>
+        <View style={styles.container}>
+            <ActivityIndicator size="large" color="#0000ff" style={styles.indicator}/>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         position: 'absolute',
-        // width: Dimensions.get("window").width,
-        // height: Dimensions.get("window").height,
+        width: Dimensions.get("window").width,
+        height: Dimensions.get("window").height,
         left: 0,
         top: 0,
         flex: 1,
@@ -26,6 +28,8 @@ const styles = StyleSheet.create({
         // backgroundColor:"black"
     },
     indicator: {
-
+        flex: 1,
+        justifyContent: "center",
+        alignSelf: "center",
     }
 });

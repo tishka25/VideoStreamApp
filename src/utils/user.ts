@@ -107,7 +107,7 @@ export default new class User {
     getSubscriptionDate(){
         const subscriptionDate = new Date(Date.parse(this.userDTO["sub_till"]));
         subscriptionDate.setHours(23, 59, 59);
-        if(!isNaN(subscriptionDate.getTime()))
+        if(isNaN(subscriptionDate.getTime()))
             return new Date(0);
         return subscriptionDate;
     }

@@ -4,9 +4,8 @@ export function getScreenshotUrl(cid: string, bid: string) {
   return `https://www.tvizio.bg/caps/rec_multi/${cid}_${bid}_1.png`;
 }
 
-export function getWeekDayString(dateString: string) {
-  const date = new Date(dateString);
-  if(!isNaN(date.getTime())) return new Date(0);
+export function getWeekDayString(date: Date) {
+  if(isNaN(date.getTime())) return "";
   const weekDays = [
     "Неделя",
     "Понеделник",
@@ -25,7 +24,7 @@ export function getWeekDayString(dateString: string) {
 
 export function getMonthString(dateString: string, hourString?: string) {
   const date = datetime.generateDate(dateString, hourString);
-  if(!isNaN(date.getTime())) return new Date(0);
+  if(isNaN(date.getTime())) return "";
   const monthStrings = [
     "Януару",
     "Февруари",
@@ -54,11 +53,11 @@ export function getPrettyDateString(
   hourString = ""
 ) {
   const date = datetime.generateDate(dateString, hourString);
-  if(!isNaN(date.getTime())) return new Date(0);
+  if(isNaN(date.getTime())) return "";
   try {
     let day: any = date.getDate();
     if (day < 10) day = `0${day}`;
-    return `${getWeekDayString(dateString)} ${day} ${getMonthString(
+    return `${getWeekDayString(date)} ${day} ${getMonthString(
       dateString
     )} ${showYear ? date.getFullYear() : ""} ${
       showTime ? date.toTimeString().substr(0, 5) : ""
