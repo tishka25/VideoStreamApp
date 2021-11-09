@@ -1,9 +1,14 @@
 import React from "react";
-import { StyleSheet } from "react-native"
+import { StyleSheet, ViewStyle } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5"
 
-export default function PlayIcon(props: any) {
+interface Props {
+    style?: ViewStyle;
+    onPress?: ()=>void;
+}
+
+export default function PlayIcon(props: Props) {
     return (
         <TouchableOpacity
             style={styles.playIconContainer}
@@ -11,6 +16,7 @@ export default function PlayIcon(props: any) {
             <FontAwesome5Icon
                 name="play"
                 size={22}
+                onPressIn={props.onPress}
                 color="#987bf3"
                 style={{ marginLeft: 4 }}
             />
