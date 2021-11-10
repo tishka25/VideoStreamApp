@@ -12,6 +12,7 @@ import LoadingIndicator from "./LoadingIndicator";
 
 interface Props {
     cid: string;
+    days?: number;
     reverse?: boolean
     onLoad?: ()=>void;
 }
@@ -28,7 +29,7 @@ export default function RecordingsListViewSlow(props: Props) {
     // Load items
     useEffect(()=>{
         (async()=>{
-            const recordings = await channels.getRecordings(props.cid, 1);
+            const recordings = await channels.getRecordings(props.cid, props.days || 1);
             if(props.reverse)
                 setItems(recordings.reverse());
             else{
