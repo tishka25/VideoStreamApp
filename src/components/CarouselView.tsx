@@ -109,7 +109,7 @@ export default function CarouselView(props: Props) {
                             renderItem={renderItem}
                             itemWidth={200}
                             containerWidth={width - 20}
-                            separatorWidth={0}
+                            separatorWidth={16}
                             ref={carouselRef}
                             inActiveOpacity={0.4}
                         />
