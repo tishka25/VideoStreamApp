@@ -15,7 +15,7 @@ import network from '../utils/network';
 import LoadingIndicator from '../components/LoadingIndicator';
 import { getPrettyDateString, getScreenshotUrl } from '../utils/utils';
 import LiveChannelList from '../components/LiveChannelList';
-import { BASE_URL } from '../utils/constants';
+import constants, { BASE_URL } from '../utils/constants';
 import { ILiveChannelListItem } from '../components/LiveChannelListItem';
 
 
@@ -64,13 +64,11 @@ export default function Home(props: any) {
 
     useEffect(() => {
         loadData();
+        const updateInterval = setInterval(()=>{
+            loadData();
+        }, constants.DATA_UPDATE_PERIOD_IN_SECONDS);
+        return () => clearInterval(updateInterval);
     }, [])
-
-
-    const OpenPlayer = (id: string) => {
-        props.navigation.navigate("Player", { id });
-    }
-
 
     return (
         // <View >
