@@ -20,6 +20,7 @@ export interface ILiveChannelListItem {
     elapsed: number;
     start: string;
     startNext: string;
+    cid: string;
 }
 
 export function LiveChannelListItem(props: ILiveChannelListItem & { onPress?: ()=>void }) {

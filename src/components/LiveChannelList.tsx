@@ -20,20 +20,22 @@ interface Props {
 }
 
 export default function LiveChannelList(props: Props) {
+    function renderItems(){
+        return props.items.map((item, index) => {
+            return (
+                <LiveChannelListItem
+                    {...item}
+                    key={index}
+                />
+            );
+        })
+    }
     return (
         <View>
             <Title name="Канали на живо"/>
-            <FlatList
-                style={{ marginBottom: 30 }}
-                data={props.items}
-                renderItem={({ item, index }) => {
-                    return (
-                        <LiveChannelListItem
-                            {...item}
-                        />
-                    );
-                }}
-            />
+            <View style={{ marginBottom: 30 }}>
+                {renderItems()}
+            </View>
         </View>
     );
 }

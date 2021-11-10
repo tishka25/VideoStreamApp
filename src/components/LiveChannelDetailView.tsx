@@ -6,6 +6,8 @@ import PlayIcon from "./PlayIcon";
 import Image from 'react-native-scalable-image';
 import ListItemDetail from "./ListItemDetail";
 import Title from "./Title";
+import { normalize } from "../utils/normalize";
+import RecordingsListView from "./RecordingsListView";
 
 export default function LiveChannelDetailView(props: ILiveChannelListItem & { onClose?: () => void, visible?: boolean }) {
     return (
@@ -30,12 +32,7 @@ export default function LiveChannelDetailView(props: ILiveChannelListItem & { on
                     <View style={{ alignSelf: "flex-start" }}>
                         <Title name="Записи"/>
                     </View>
-                    <ListItemDetail 
-                        title={"mngoo asdasdasdasasfafsaas asfafasas asfaf dasdasdasdadasdasadasdasdasdasdas"} 
-                        subtitle={`${props.start} - ${props.startNext}`} 
-                        imageSrc={props.logoSrc}
-                        height={80}
-                    />
+                    <RecordingsListView cid={props.cid}/>
                     </ScrollView>
                     
                 </View>
