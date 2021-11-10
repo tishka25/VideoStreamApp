@@ -7,6 +7,7 @@ import {
     View,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { normalize } from "../utils/normalize";
 
 interface Props {
     imageSrc: string;
@@ -33,7 +34,7 @@ export default function CarouselItem(props: Props) {
 const styles = StyleSheet.create({
     header: {
         color: "white",
-        fontSize: 24,
+        fontSize: normalize(24),
         fontWeight: "bold",
         marginLeft: 10,
         marginVertical: 10,

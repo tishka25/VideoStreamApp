@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         elevation: 10,
         borderWidth: 4,
-        borderColor: "rgba(2,173,148,0.2)",
+        borderColor: "#7A00EE",
         marginBottom: 14,
     },
 })

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Dimensions, ImageBackground, Modal, StyleSheet, Text, View } from "react-native";
+import { Dimensions, ImageBackground, Modal, StyleSheet, ScrollView , View } from "react-native";
 import CloseIcon from "./CloseIcon";
 import { ILiveChannelListItem } from "./LiveChannelListItem";
 import PlayIcon from "./PlayIcon";
 import Image from 'react-native-scalable-image';
 import ListItemDetail from "./ListItemDetail";
+import Title from "./Title";
 
 export default function LiveChannelDetailView(props: ILiveChannelListItem & { onClose?: () => void, visible?: boolean }) {
     return (
@@ -16,6 +17,7 @@ export default function LiveChannelDetailView(props: ILiveChannelListItem & { on
         >
             <View style={styles.modalView}>
                 <View style={styles.channelListItemDetailContainer}>
+                    <ScrollView style={{ width: "100%" }}>
                     <ImageBackground source={{ uri: props.imageSrc }} resizeMode="cover" style={styles.imageBackground}>
                         <CloseIcon style={styles.closeIcon} onPress={props.onClose} />
                         <PlayIcon />
@@ -25,6 +27,16 @@ export default function LiveChannelDetailView(props: ILiveChannelListItem & { on
                         subtitle={`${props.start} - ${props.startNext}`} 
                         imageSrc={props.logoSrc}
                     />
+                    <View style={{ alignSelf: "flex-start" }}>
+                        <Title name="Записи"/>
+                    </View>
+                    <ListItemDetail 
+                        title={"mngoo asdasdasdasasfafsaas asfafasas asfaf dasdasdasdadasdasadasdasdasdasdas"} 
+                        subtitle={`${props.start} - ${props.startNext}`} 
+                        imageSrc={props.logoSrc}
+                        height={80}
+                    />
+                    </ScrollView>
                     
                 </View>
             </View>

@@ -4,6 +4,7 @@ import {
     Text,
     View,
 } from "react-native";
+import { normalize } from "../utils/normalize";
 
 
 interface Props {
@@ -15,14 +16,20 @@ export default function Title(props: Props) {
     const defaultColor = "white";
     return (
         <View>
-            <Text style={[styles.header, { color: props.color || defaultColor }]}>{props.name}</Text>
+            <Text 
+                style={[styles.header, { color: props.color || defaultColor }]}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+            >
+                {props.name}
+            </Text>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     header: {
-        fontSize: 24,
+        fontSize: normalize(24),
         fontWeight: "bold",
         marginLeft: 10,
         marginVertical: 10,

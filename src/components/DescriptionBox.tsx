@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import PlayIcon from "./PlayIcon";
 
 interface Props {
     title: string;
@@ -25,17 +26,7 @@ export default function DescriptionBox(props: Props) {
                     <Text style={styles.movieName}>{props.title}</Text>
                     <Text style={styles.movieStat}>{props.date}</Text>
                 </View>
-                <TouchableOpacity
-                    style={styles.playIconContainer}
-                    onPress={() => props.onSelect ? props.onSelect() : (() => { })()}
-                >
-                    <FontAwesome5
-                        name="play"
-                        size={22}
-                        color="#987bf3"
-                        style={{ marginLeft: 4 }}
-                    />
-                </TouchableOpacity>
+                <PlayIcon />
             </View>
 
             <View style={{ paddingHorizontal: 14, marginBottom: 14 }}>

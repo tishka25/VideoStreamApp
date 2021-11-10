@@ -49,7 +49,7 @@ export function LiveChannelListItem(props: ILiveChannelListItem & { onPress?: ()
 const styles = StyleSheet.create({
     channelListItemBackground: { width: 214, height: 120},
     channelListItemLogo: {width: undefined, height: 64, aspectRatio: 1, marginTop: 8},
-    channelListItemSeparator: { position: "absolute", height: 5, width: "100%", backgroundColor: "#02ad94", opacity: 0.8 },
+    channelListItemSeparator: { position: "absolute", height: 5, width: "100%", backgroundColor: "#7A00EE", opacity: 0.8 },
     channelListItemTouchableContainer: {
         width: "100%",
         flex:1,
