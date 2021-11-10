@@ -23,3 +23,9 @@ export function reset(name: RootNavigationScreen){
         navigationRef.reset({ index: 0, routes: [{ name: name }] });
     }
 }
+
+export function goBack(){
+  if(navigationRef.isReady()) {
+    navigationRef.goBack();
+  }
+}

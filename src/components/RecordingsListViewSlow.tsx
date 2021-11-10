@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, StyleProp, StyleSheet, View, ViewStyle } from "react-native"
-import { TouchableOpacity } from "react-native-gesture-handler"
+import { StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context";
-import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5"
 import channels, { RecordingItem } from "../utils/channels";
 import { normalize } from "../utils/normalize";
 import { getPrettyDateString, getScreenshotUrl } from "../utils/utils";
 import ListItemDetail from "./ListItemDetail";
 import LoadingIndicator from "./LoadingIndicator";
+import * as RootNavitaion from "../rootNavigation";
 
 
 interface Props {
@@ -42,6 +41,11 @@ export default function RecordingsListViewSlow(props: Props) {
 
     }, []);
 
+    function OpenPlayer(id: string){
+        console.log("Opening player");
+        RootNavitaion.navigate("Player", { isLive: false, id })
+    }
+
     function renderList() {
         return (
             items.map((item)=>{
@@ -53,6 +57,7 @@ export default function RecordingsListViewSlow(props: Props) {
                     height={80}
                     titleFontSize={normalize(14)}
                     subtitleFontSize={normalize(12)}
+                    onPress={()=> OpenPlayer(item.bid) }
                 />
                 );
             })
