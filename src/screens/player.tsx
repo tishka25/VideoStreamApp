@@ -43,9 +43,9 @@ export default function Player({ navigation, route }: Props) {
 
   const [videoControlShown, setVideoControlShown] = useState(false);
 
-  var controlsTimeout: any = null;
+  var controlsTimeout = useRef<any>(null);
   useEffect(()=>{
-    return ()=>clearTimeout(controlsTimeout);
+    return ()=>clearTimeout(controlsTimeout.current);
   },[]);
 
   useEffect(() => {
@@ -109,8 +109,8 @@ export default function Player({ navigation, route }: Props) {
         controlsTimeout={1000}
         onShowControls={()=>{
           setVideoControlShown(true);
-          clearTimeout(controlsTimeout);
-          controlsTimeout = setTimeout(_=>{
+          clearTimeout(controlsTimeout.current);
+          controlsTimeout.current = setTimeout(_=>{
             setVideoControlShown(false);
           }, 1000)
         }}
