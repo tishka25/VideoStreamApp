@@ -45,7 +45,7 @@ export default function Player({ navigation, route }: Props) {
 
   var controlsTimeout: any = null;
   useEffect(()=>{
-    clearTimeout(controlsTimeout);
+    return ()=>clearTimeout(controlsTimeout);
   },[]);
 
   useEffect(() => {
