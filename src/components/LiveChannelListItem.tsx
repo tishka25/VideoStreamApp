@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Image,
     Modal,
@@ -24,10 +24,15 @@ export interface ILiveChannelListItem {
 }
 
 export function LiveChannelListItem(props: ILiveChannelListItem & { onPress?: ()=>void }) {
-    const [selected, setSelected] = useState(false);
+    const [selected, setSelected] = useState<'undefined' | 'show' | 'hide'>('undefined');
+
+    useEffect(()=>{
+        if(selected === 'hide')
+            setSelected('show');
+    },[selected]);
 
     function handlePress(){
-        setSelected(true);
+        setSelected('hide');
         if(props.onPress)
             props.onPress()
     }
@@ -42,7 +47,7 @@ export function LiveChannelListItem(props: ILiveChannelListItem & { onPress?: ()
                 <Image source={{ uri: props.logoSrc }} style={styles.channelListItemLogo} resizeMode="contain"/>
                 <Text style={{ color: "white", marginBottom: 8 }}>{props.channelName}</Text>
             </View>
-            <LiveChannelDetailView {...props} visible={selected} onClose={()=>setSelected(false)}/>
+            <LiveChannelDetailView {...props} visible={selected==='show'} onClose={()=>setSelected('undefined')}/>
         </TouchableOpacity>
     )
 }
