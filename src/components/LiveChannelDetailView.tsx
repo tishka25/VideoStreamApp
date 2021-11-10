@@ -7,10 +7,16 @@ import ListItemDetail from "./ListItemDetail";
 import Title from "./Title";
 import RecordingsListViewSlow from "./RecordingsListViewSlow";
 import TvizioButton from "./TvizioButton";
+import * as RootNavitaion from "../rootNavigation";
 
 export default function LiveChannelDetailView(props: ILiveChannelListItem & { onClose?: () => void, visible?: boolean }) {
 
     const [recordingsLoaded, setRecordingsLoaded] = useState(false);
+
+    function OpenPlayer(id: string){
+        console.log("Opening player");
+        RootNavitaion.navigate("Player", { isLive: true, id })
+    }
 
     return (
         <Modal
@@ -24,7 +30,7 @@ export default function LiveChannelDetailView(props: ILiveChannelListItem & { on
                     <CloseIcon style={styles.closeIcon} onPress={props.onClose} />
                     <ScrollView style={{ width: "100%" }}>
                         <ImageBackground source={{ uri: props.imageSrc }} resizeMode="cover" style={styles.imageBackground}>
-                            <PlayIcon />
+                            <PlayIcon style={{ zIndex:999 }} onPress={()=> OpenPlayer(props.cid) }/>
                         </ImageBackground>
                         <ListItemDetail
                             title={props.currentShowName}
