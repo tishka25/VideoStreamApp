@@ -35,7 +35,11 @@ export default function LiveChannelDetailView(props: ILiveChannelListItem & { on
                             <Title name="Предишни предавания за деня" />
                         </View>
                         <RecordingsListViewSlow cid={props.cid} onLoad={() => setRecordingsLoaded(true)} />
-                        {recordingsLoaded && <TvizioButton customStyle={{ alignSelf: "center", marginBottom: 32 }} title="Покажи всички" />}
+                        {recordingsLoaded && 
+                            <TvizioButton 
+                                customStyle={{ alignSelf: "center", marginBottom: 32, marginTop: -32}} 
+                                title="Покажи всички" 
+                            />}
 
                     </ScrollView>
 

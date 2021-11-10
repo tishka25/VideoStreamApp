@@ -58,7 +58,7 @@ export default function RecordingsListViewSlow(props: Props) {
         )
     }
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{ paddingBottom: 0,marginBottom:0 }}>
             {loading ?  <LoadingIndicator/> : renderList()}
         </SafeAreaView>
     )
