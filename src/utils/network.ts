@@ -12,7 +12,7 @@ export default new class Network{
         this.getTimeDifferenceFromSofia = this.getTimeDifferenceFromSofia.bind(this);
     }
 
-    _getJSON(url: string, parse = true): Promise<any> {
+    private _getJSON(url: string, parse = true): Promise<any> {
         return new Promise((resolve , reject)=>{
             var xhr = new XMLHttpRequest();
             xhr.timeout = constant.NETWORK_TIMEOUT_TIME;
@@ -37,7 +37,7 @@ export default new class Network{
         });
     }
 
-    _postData(url:string, data = {}, content_type?: string){
+    private _postData(url:string, data = {}, content_type?: string){
         return new Promise((resolve, reject)=>{
             console.log("Opening:", url, data);
             var xhr = new XMLHttpRequest();

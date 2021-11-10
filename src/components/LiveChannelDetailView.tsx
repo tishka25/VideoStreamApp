@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { Dimensions, ImageBackground, Modal, StyleSheet, ScrollView , View } from "react-native";
+import { ImageBackground, Modal, StyleSheet, ScrollView , View } from "react-native";
 import CloseIcon from "./CloseIcon";
 import { ILiveChannelListItem } from "./LiveChannelListItem";
 import PlayIcon from "./PlayIcon";
-import Image from 'react-native-scalable-image';
 import ListItemDetail from "./ListItemDetail";
 import Title from "./Title";
-import { normalize } from "../utils/normalize";
-import RecordingsListView from "./RecordingsListView";
+import RecordingsListViewSlow from "./RecordingsListViewSlow";
+import TvizioButton from "./TvizioButton";
 
 export default function LiveChannelDetailView(props: ILiveChannelListItem & { onClose?: () => void, visible?: boolean }) {
+
+    const [recordingsLoaded, setRecordingsLoaded] = useState(false);
+
     return (
         <Modal
             visible={props.visible}
@@ -19,9 +21,9 @@ export default function LiveChannelDetailView(props: ILiveChannelListItem & { on
         >
             <View style={styles.modalView}>
                 <View style={styles.channelListItemDetailContainer}>
+                    <CloseIcon style={styles.closeIcon} onPress={props.onClose} />
                     <ScrollView style={{ width: "100%" }}>
                     <ImageBackground source={{ uri: props.imageSrc }} resizeMode="cover" style={styles.imageBackground}>
-                        <CloseIcon style={styles.closeIcon} onPress={props.onClose} />
                         <PlayIcon />
                     </ImageBackground>
                     <ListItemDetail 
@@ -30,9 +32,11 @@ export default function LiveChannelDetailView(props: ILiveChannelListItem & { on
                         imageSrc={props.logoSrc}
                     />
                     <View style={{ alignSelf: "flex-start" }}>
-                        <Title name="Записи"/>
+                        <Title name="Предишни предавания за деня"/>
                     </View>
-                    <RecordingsListView cid={props.cid}/>
+                    <RecordingsListViewSlow cid={props.cid} onLoad={() => setRecordingsLoaded(true)}/>
+                    {recordingsLoaded && <TvizioButton customStyle={{ alignSelf: "center" }} title="Покажи всички"/>}
+
                     </ScrollView>
                     
                 </View>

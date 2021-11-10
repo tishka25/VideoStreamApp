@@ -57,6 +57,7 @@ export default function Home(props: any) {
                     elapsed: item.elapsed,
                     start: item.start,
                     startNext: item.start_next,
+                    cid: item.cid
                 }
             }));
             setLoading(false);

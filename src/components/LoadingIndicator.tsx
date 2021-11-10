@@ -8,9 +8,9 @@ interface Props {
 export default function LoadingIndicator(props: Props){
     
     return (
-        <View style={styles.container}>
-            <ActivityIndicator size="large" color="#0000ff" style={styles.indicator}/>
-        </View>
+        // <View style={styles.container}>
+            <ActivityIndicator color="white" size="large"/>
+        // </View>
     );
 }
 

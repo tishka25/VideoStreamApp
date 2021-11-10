@@ -13,7 +13,7 @@ interface Props {
 
 export default function ListItemDetail(props: Props) {
     const defaultHeight = 120;
-    const defaultTitleFontSize = normalize(18);
+    const defaultTitleFontSize = normalize(15);
     const defaultSubtitleFontSize = normalize(14);
     return (
         <View style={[styles.container, { height: props.height || defaultHeight }]}>

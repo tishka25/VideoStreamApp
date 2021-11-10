@@ -2,6 +2,7 @@
 import React from 'react';
 import { Pressable, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
 import { BaseButtonProps } from 'react-native-gesture-handler';
+import { normalize } from '../utils/normalize';
 
 interface Props {
     onPress?: ()=>void;
@@ -25,7 +26,13 @@ export default function TvizioButton(props: Props){
             ]}
             onPress={props.onPress}
         >
-            <Text style={styles.buttonText}>{props.title}</Text>
+            <Text 
+                style={styles.buttonText}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+            >
+                {props.title}
+            </Text>
         </Pressable>
     );
 }
@@ -33,7 +40,7 @@ export default function TvizioButton(props: Props){
 const styles = StyleSheet.create({
     buttonText: {
         color: '#FFFFFF',
-        fontSize: 14,
+        fontSize: normalize(12),
         fontWeight: 'bold',
         textTransform: 'uppercase'
     },
