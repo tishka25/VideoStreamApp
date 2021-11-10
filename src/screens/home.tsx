@@ -31,37 +31,39 @@ export default function Home(props: any) {
 
     // const [lastWatchedMovie, setLastMovie] = useState(gallery[0]);
 
+    async function loadData() {
+        // Load history
+        const _history = await network.getHistory();
+        console.log("History", _history);
+        const items: ICarouselViewItem[] = _history.map((element: any) => {
+            return {
+                imageSrc: getScreenshotUrl(element.cid, element.bid),
+                title: "",
+                date: getPrettyDateString(element.date, true, false, element.time),
+                description: element.name
+            }
+        });
+        setHistoryList(items);
+        //
+        const _liveList = await network.getChannels();
+        setLiveList(_liveList.map((item: any) => {
+            return {
+                imageSrc: `${BASE_URL}${item.background}?hash=${Date.now()}`, //Disable cache
+                logoSrc: `${BASE_URL}${item.logo}`,
+                channelName: item.chName,
+                currentShowName: item.name,
+                nextShowName: item.next_name,
+                elapsed: item.elapsed,
+                start: item.start,
+                startNext: item.start_next,
+                cid: item.cid
+            }
+        }));
+        setLoading(false);
+    }
+
     useEffect(() => {
-        (async () => {
-            // Load history
-            const _history = await network.getHistory();
-            console.log("History", _history);
-            const items: ICarouselViewItem[] = _history.map((element: any) => {
-                return {
-                    imageSrc: getScreenshotUrl(element.cid, element.bid),
-                    title: "",
-                    date: getPrettyDateString(element.date, true, false, element.time),
-                    description: element.name
-                }
-            });
-            setHistoryList(items);
-            //
-            const _liveList = await network.getChannels();
-            setLiveList(_liveList.map((item: any) => {
-                return {
-                    imageSrc: `${BASE_URL}${item.background}`,
-                    logoSrc: `${BASE_URL}${item.logo}`,
-                    channelName: item.chName,
-                    currentShowName: item.name,
-                    nextShowName: item.next_name,
-                    elapsed: item.elapsed,
-                    start: item.start,
-                    startNext: item.start_next,
-                    cid: item.cid
-                }
-            }));
-            setLoading(false);
-        })()
+        loadData();
     }, [])
 
 
