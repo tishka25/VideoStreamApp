@@ -13,11 +13,17 @@ interface Props {
     title: string;
     date: string;
     description: string;
-    onSelect?: () => void;
+    id: string;
+    onSelect?: (id: string) => void;
 
 }
 
 export default function DescriptionBox(props: Props) {
+
+    function handleSelect(){
+        if(props.onSelect)
+            props.onSelect(props.id);
+    }
 
     return (
         <View>
@@ -26,7 +32,7 @@ export default function DescriptionBox(props: Props) {
                     <Text style={styles.movieName}>{props.title}</Text>
                     <Text style={styles.movieStat}>{props.date}</Text>
                 </View>
-                <PlayIcon />
+                <PlayIcon onPress={handleSelect}/>
             </View>
 
             <View style={{ paddingHorizontal: 14, marginBottom: 14 }}>

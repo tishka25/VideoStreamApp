@@ -1,14 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, Dimensions, Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
-import { FlatList, ScrollView, TextInput, TouchableNativeFeedback, TouchableOpacity } from 'react-native-gesture-handler';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { FlatList, ScrollView, TextInput } from 'react-native-gesture-handler';
 //@ts-ignore
-// import { MaterialIcons, FontAwesome5 } from "react-native-vector-icons";
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Orientation from 'react-native-orientation';
-//@ts-ignore
-import { SERVER_URL } from "@env"
 import CarouselView, { ICarouselViewItem } from '../components/CarouselView';
 import user from '../utils/user';
 import network from '../utils/network';
@@ -17,6 +11,7 @@ import { getPrettyDateString, getScreenshotUrl } from '../utils/utils';
 import LiveChannelList from '../components/LiveChannelList';
 import constants, { BASE_URL } from '../utils/constants';
 import { ILiveChannelListItem } from '../components/LiveChannelListItem';
+import * as RootNavitaion from "../rootNavigation";
 
 
 export default function Home(props: any) {
@@ -40,7 +35,8 @@ export default function Home(props: any) {
                 imageSrc: getScreenshotUrl(element.cid, element.bid),
                 title: "",
                 date: getPrettyDateString(element.date, true, false, element.time),
-                description: element.name
+                description: element.name,
+                id: element.bid
             }
         });
         setHistoryList(items);
@@ -64,11 +60,16 @@ export default function Home(props: any) {
 
     useEffect(() => {
         loadData();
-        const updateInterval = setInterval(()=>{
-            loadData();
-        }, constants.DATA_UPDATE_PERIOD_IN_SECONDS);
-        return () => clearInterval(updateInterval);
-    }, [])
+        // const updateInterval = setInterval(()=>{
+        //     loadData();
+        // }, constants.DATA_UPDATE_PERIOD_IN_SECONDS);
+        // return () => clearInterval(updateInterval);
+    }, []);
+
+
+    function OpenPlayer(id: string){
+        RootNavitaion.navigate("Player", { isLive: false, id })
+    }
 
     return (
         // <View >
@@ -86,6 +87,7 @@ export default function Home(props: any) {
                     <CarouselView
                         name="Последно гледани"
                         items={historyList}
+                        onSelect={OpenPlayer}
                     />
                     <LiveChannelList items={liveList} />
                 </View>

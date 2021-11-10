@@ -23,11 +23,13 @@ export interface ICarouselViewItem {
     title: string;
     date: string;
     description: string;
+    id: string;
 }
 
 interface Props {
     name: string
     items: ICarouselViewItem[]
+    onSelect?:(id: string) => void;
 }
 
 export default function CarouselView(props: Props) {
@@ -114,9 +116,8 @@ export default function CarouselView(props: Props) {
                     </View>
 
                     <DescriptionBox
-                        date={selectedMovie.date}
-                        description={selectedMovie.description}
-                        title={selectedMovie.title}
+                        {...selectedMovie}
+                        onSelect={props.onSelect}
                     />
                    
                 </ImageBackground>
