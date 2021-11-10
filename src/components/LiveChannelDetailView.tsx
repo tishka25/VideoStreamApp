@@ -4,7 +4,7 @@ import CloseIcon from "./CloseIcon";
 import { ILiveChannelListItem } from "./LiveChannelListItem";
 import PlayIcon from "./PlayIcon";
 import Image from 'react-native-scalable-image';
-import CurrentShow from "./CurrentShow";
+import ListItemDetail from "./ListItemDetail";
 
 export default function LiveChannelDetailView(props: ILiveChannelListItem & { onClose?: () => void, visible?: boolean }) {
     return (
@@ -20,12 +20,12 @@ export default function LiveChannelDetailView(props: ILiveChannelListItem & { on
                         <CloseIcon style={styles.closeIcon} onPress={props.onClose} />
                         <PlayIcon />
                     </ImageBackground>
-                    <CurrentShow 
-                        name={props.currentShowName} 
-                        date={`${props.start} - ${props.startNext}`} 
-                        logoSrc={props.logoSrc}
+                    <ListItemDetail 
+                        title={props.currentShowName} 
+                        subtitle={`${props.start} - ${props.startNext}`} 
+                        imageSrc={props.logoSrc}
                     />
-                    {/* <CurrentShow name={props.nextShowName} date={"22:30"} /> */}
+                    
                 </View>
             </View>
         </Modal>

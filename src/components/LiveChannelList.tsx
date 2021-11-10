@@ -12,6 +12,7 @@ import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
 import CloseIcon from "./CloseIcon";
 import { ILiveChannelListItem, LiveChannelListItem } from "./LiveChannelListItem";
 import PlayIcon from "./PlayIcon";
+import Title from "./Title";
 
 
 interface Props {
@@ -20,16 +21,19 @@ interface Props {
 
 export default function LiveChannelList(props: Props) {
     return (
-        <FlatList
-                    style={{ marginBottom: 30 }}
-                    data={props.items}
-                    renderItem={({ item,index }) => {
-                        return (
-                            <LiveChannelListItem 
-                                {...item} 
-                            />
-                        );
-                    }}
-                />
+        <View>
+            <Title name="Канали на живо"/>
+            <FlatList
+                style={{ marginBottom: 30 }}
+                data={props.items}
+                renderItem={({ item, index }) => {
+                    return (
+                        <LiveChannelListItem
+                            {...item}
+                        />
+                    );
+                }}
+            />
+        </View>
     );
 }

@@ -31,12 +31,12 @@ export default function Home(props: any) {
 
     // const [lastWatchedMovie, setLastMovie] = useState(gallery[0]);
 
-    useEffect(()=>{
-        (async()=>{
+    useEffect(() => {
+        (async () => {
             // Load history
             const _history = await network.getHistory();
             console.log("History", _history);
-            const items: ICarouselViewItem[] = _history.map((element: any)=>{
+            const items: ICarouselViewItem[] = _history.map((element: any) => {
                 return {
                     imageSrc: getScreenshotUrl(element.cid, element.bid),
                     title: "",
@@ -47,7 +47,7 @@ export default function Home(props: any) {
             setHistoryList(items);
             //
             const _liveList = await network.getChannels();
-            setLiveList(_liveList.map((item: any)=>{
+            setLiveList(_liveList.map((item: any) => {
                 return {
                     imageSrc: `${BASE_URL}${item.background}`,
                     logoSrc: `${BASE_URL}${item.logo}`,
@@ -61,10 +61,10 @@ export default function Home(props: any) {
             }));
             setLoading(false);
         })()
-    },[])
+    }, [])
 
 
-    const OpenPlayer = (id: string)=>{
+    const OpenPlayer = (id: string) => {
         props.navigation.navigate("Player", { id });
     }
 
@@ -72,24 +72,24 @@ export default function Home(props: any) {
     return (
         // <View >
         //     {loading ? <ActivityIndicator/> : 
-        <ScrollView style={{ backgroundColor: "#15152d" }}>
+        <ScrollView style={{ backgroundColor: "black" }}>
             <View style={styles.searchBoxContainer}>
-                        <TextInput
-                            placeholder="Search"
-                            placeholderTextColor="#666"
-                            style={styles.searchBox}
-                        />
-                    </View>
-            {loading ? <LoadingIndicator/> :
-            <View>
-                <CarouselView
-                    name="Последно гледани"
-                    items={historyList}
+                <TextInput
+                    placeholder="Search"
+                    placeholderTextColor="#666"
+                    style={styles.searchBox}
                 />
-                <LiveChannelList items={liveList}/>
             </View>
+            {loading ? <LoadingIndicator /> :
+                <View>
+                    <CarouselView
+                        name="Последно гледани"
+                        items={historyList}
+                    />
+                    <LiveChannelList items={liveList} />
+                </View>
             }
-            
+
             {/* Continue to watch section */}
             {/* <View style={{ marginHorizontal: 14 }}>
                 <Text style={{ color: "white", fontSize: 24, fontWeight: "bold", marginBottom: 24, marginTop: 24 }}>Continue Watching</Text>
