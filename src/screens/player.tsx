@@ -8,6 +8,8 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types';
 import network from '../utils/network';
 import * as RootNavitaion from "../rootNavigation";
+import CloseIcon from '../components/CloseIcon';
+import LoadingIndicator from '../components/LoadingIndicator';
 
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Player'>;
@@ -16,9 +18,9 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Player'>;
 export default function Player({ navigation, route }: Props) {
 
   useEffect(() => {
-    // Orientation.lockToLandscape()
+    Orientation.lockToLandscape()
     return () => {
-      // Orientation.lockToPortrait()
+      Orientation.lockToPortrait()
     }
   }, []);
 
@@ -35,9 +37,11 @@ export default function Player({ navigation, route }: Props) {
 
   const [thumbnail, setThumbnail] = useState(undefined);
 
-  const [videoURL, setVideoURL] = useState("");
+  const [videoURL, setVideoURL] = useState(undefined);
 
   const [fullscreen, setFullScreen] = useState(true);
+
+  const [videoControlShown, setVideoControlShown] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -81,29 +85,32 @@ export default function Player({ navigation, route }: Props) {
     }, [])
   );
 
-  // console.log("Playing: ", route.params.id)
 
   return (
-    <View style={styles.container} onLayout={() => setDimensions({ width: Dimensions.get("window").width, height: Dimensions.get("window").height })}>
-      <Button onPress={() => {
-        setFullScreen(false);
-        RootNavitaion.goBack();
-        // navigation.popToTop();
-      }}
-        title="Go Back"
-      />
-      <VideoPlayer
+    <View style={styles.container} onLayout={() => setDimensions({ width: Dimensions.get("screen").width, height: Dimensions.get("screen").height })}>
+      {videoControlShown && <CloseIcon style={styles.closeIcon} onPress={()=> RootNavitaion.goBack()} />}
+      {videoURL ? <VideoPlayer
         endWithThumbnail
         // thumbnail={{ uri: thumbnail }}
         video={{ uri: videoURL }}
         ref={player}
-        // videoWidth={dimensions.width}
-        // videoHeight={dimensions.height - 200}
+        // Invert width & height for landscape playing
+        videoWidth={Dimensions.get("screen").height}
+        videoHeight={Dimensions.get("screen").width}
+        showDuration
         autoplay
-        fullscreen
+        fullscreen={fullscreen}
         fullscreenOrientation="landscape"
-      >
-      </VideoPlayer>
+        controlsTimeout={1000}
+        onShowControls={()=>{
+          setVideoControlShown(true);
+          setTimeout(_=>{
+            setVideoControlShown(false);
+          }, 1000)
+        }}
+        /> :
+        <LoadingIndicator />
+      }
     </View>
   );
 }
@@ -115,4 +122,12 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  closeIcon: {
+    position: 'absolute',
+    right: 8,
+    top: 8,
+    zIndex: 999,
+    backgroundColor: "#00000080",
+    borderRadius: 64
+},
 });
