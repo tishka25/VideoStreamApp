@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { ImageBackground, Modal, StyleSheet, ScrollView, View, Platform } from "react-native";
-import CloseIcon from "./CloseIcon";
-import { ILiveChannelListItem } from "./LiveChannelListItem";
-import PlayIcon from "./PlayIcon";
-import ListItemDetail from "./ListItemDetail";
-import Title from "./Title";
-import RecordingsListViewSlow from "./RecordingsListViewSlow";
-import TvizioButton from "./TvizioButton";
+import CloseIcon from "../components/CloseIcon";
+import PlayIcon from "../components/PlayIcon";
+import ListItemDetail from "../components/ListItemDetail";
+import Title from "../components/Title";
+import RecordingsListViewSlow from "../components/RecordingsListViewSlow";
+import TvizioButton from "../components/TvizioButton";
 import * as RootNavitaion from "../rootNavigation";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types";

@@ -13,7 +13,7 @@ import { RootStackParamList, RootTabParamList } from './src/types';
 import { navigationRef } from './src/rootNavigation';
 import Login from './src/screens/login';
 import Launcher from './src/screens/launcher';
-import LiveChannelDetailView from './src/components/LiveChannelDetailView';
+import LiveChannelDetailView from './src/screens/LiveChannelDetailView';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -62,6 +62,14 @@ function Screens(props: any) {
         }}
         component={LiveChannelDetailView}
       />
+      {/* <Stack.Screen
+        name="RecordingsForChannel"
+        options={{
+          cardStyleInterpolator: Platform.OS === 'ios' ? 
+          CardStyleInterpolators.forVerticalIOS  : CardStyleInterpolators.forBottomSheetAndroid,
+        }}
+        component={LiveChannelDetailView}
+      /> */}
     </Stack.Navigator>
   )
 }
