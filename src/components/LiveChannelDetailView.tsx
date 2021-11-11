@@ -32,7 +32,7 @@ export default function LiveChannelDetailView({ navigation, route }: Props) {
             <View style={styles.modalView}>
                 <View style={styles.channelListItemDetailContainer}>
                     <CloseIcon style={styles.closeIcon} onPress={()=> RootNavitaion.goBack() } />
-                    <ScrollView style={{ width: "100%" }}>
+                    <ScrollView style={{ width: "100%" }} bounces={false}>
                         <ImageBackground source={{ uri: route.params.imageSrc }} resizeMode="cover" style={styles.imageBackground}>
                             <PlayIcon style={{ zIndex:999 }} onPress={()=> OpenPlayer(route.params.cid) }/>
                         </ImageBackground>

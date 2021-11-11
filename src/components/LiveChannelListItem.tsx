@@ -58,11 +58,12 @@ export function LiveChannelListItem(props: ILiveChannelListItem & { onPress?: ()
 const styles = StyleSheet.create({
     channelListItemBackground: { width: 214, height: 120},
     channelListItemLogo: {width: undefined, height: 64, aspectRatio: 1, marginTop: 8},
-    channelListItemSeparator: { position: "absolute", height: 5, width: "100%", backgroundColor: "#7A00EE", opacity: 0.8 },
+    channelListItemSeparator: { position: "absolute", height: 2, width: "100%", backgroundColor: "#7A00EE", opacity: 0.8 },
     channelListItemTouchableContainer: {
         width: "100%",
         flex:1,
-        flexDirection: "row"
+        flexDirection: "row",
+        marginVertical: 2,
     },
     channelListItemContainer: { flex:1, justifyContent: "space-between", alignItems: "center" , width: "100%"}
 });

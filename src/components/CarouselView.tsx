@@ -30,6 +30,7 @@ interface Props {
     name: string
     items: ICarouselViewItem[]
     onSelect?:(id: string) => void;
+    header?: React.ReactElement;
 }
 
 export default function CarouselView(props: Props) {
@@ -93,13 +94,14 @@ export default function CarouselView(props: Props) {
     return (
         <View style={styles.carouselContentContainer}>
             <View
-                style={{ backgroundColor: "#000", ...(StyleSheet.absoluteFill as {}) }}
+                style={{ backgroundColor: "#000", width: "100%"}}
             >
                 <ImageBackground
                     source={{ uri: selectedMovie.imageSrc }}
                     style={styles.imageBackground}
                     blurRadius={10}
                 >
+                    {props.header}
                     <Text style={styles.header}>{props.name}</Text>
 
                     <View style={styles.carouselContainerView}>
@@ -135,10 +137,12 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     carouselContentContainer: {
-        flex: 1,
+        // flex: 1,
         backgroundColor: "#000",
-        height: 400,
-        paddingHorizontal: 14,
+        width: "100%",
+        minHeight: 500,
+        // paddingHorizontal: 14,
+        flexDirection: "row",
     },
     imageBackground: {
         flex: 1,

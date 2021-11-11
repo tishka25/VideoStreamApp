@@ -76,6 +76,18 @@ export default function Home(props: any) {
         RootNavitaion.navigate("Player", { isLive: false, id })
     }
 
+    function renderSearchBox(){
+        return (
+            <View style={styles.searchBoxContainer}>
+                <TextInput
+                    placeholder="Search"
+                    placeholderTextColor="#666"
+                    style={styles.searchBox}
+                />
+            </View>
+        )
+    }
+
     function renderMainView(){
         return (
             loading ? <LoadingIndicator /> :
@@ -84,6 +96,7 @@ export default function Home(props: any) {
                         name="Последно гледани"
                         items={historyList}
                         onSelect={OpenPlayer}
+                        header={renderSearchBox()}
                     />
                     <LiveChannelList items={liveList} />
                 </View>
@@ -97,20 +110,18 @@ export default function Home(props: any) {
     }
 
     return (
-        <ScrollView style={{ backgroundColor: "black" }}>
+        <ScrollView style={{ backgroundColor: "black" }} bounces={false}>
             <StatusBar barStyle="light-content"/>
-            <SafeAreaView style={{ backgroundColor: "black" , flex: 1}}>
-            </SafeAreaView>
-            <View style={styles.searchBoxContainer}>
+            {/* <SafeAreaView style={{ backgroundColor: "black" , flex: 1}}>
+            </SafeAreaView> */}
+            {/* <View style={styles.searchBoxContainer}>
                 <TextInput
                     placeholder="Search"
                     placeholderTextColor="#666"
                     style={styles.searchBox}
-                    onBegan={()=>setIsSearching(true)}
-                    onEndEditing={()=>setIsSearching(false)}
                 />
-            </View>
-            {isSearching ?  renderSearchView() : renderMainView()}
+            </View> */}
+            {renderMainView()}
 
             {/* Continue to watch section */}
             {/* <View style={{ marginHorizontal: 14 }}>
@@ -173,7 +184,8 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         elevation: 10,
         borderRadius: 4,
-        marginVertical: 14,
+        marginBottom: 14,
+        marginVertical: 64,
         width: "95%",
         flexDirection: "row",
         alignSelf: "center",
