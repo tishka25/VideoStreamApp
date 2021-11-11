@@ -13,6 +13,7 @@ import { RootStackParamList, RootTabParamList } from './src/types';
 import { navigationRef } from './src/rootNavigation';
 import Login from './src/screens/login';
 import Launcher from './src/screens/launcher';
+import LiveChannelDetailView from './src/components/LiveChannelDetailView';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -25,6 +26,7 @@ function Screens(props: any) {
       initialRouteName="Launcher"
       screenOptions={{
         headerShown: false,
+        gestureEnabled: false,
       }}
     >
       <Stack.Screen 
@@ -42,6 +44,10 @@ function Screens(props: any) {
       <Stack.Screen
         name="Player"
         component={Player}
+      />
+      <Stack.Screen
+        name="LiveChannelDetailView"
+        component={LiveChannelDetailView}
       />
     </Stack.Navigator>
   )

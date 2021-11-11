@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleProp, StyleSheet, View, ViewStyle } from "react-native"
+import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5"
 
@@ -11,16 +11,19 @@ interface Props {
 
 export default function CloseIcon(props: Props) {
     return (
+        // <Pressable
+        //     onPress={props.onPress}
+        // >
         <View style={props.style}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={props.onPress}>
             <FontAwesome5Icon
                 name="times-circle"
-                onPress={props.onPress}
                 size={props.size || 32}
                 color="#987bf3"
                 />
         </TouchableOpacity>
         </View>
+        // </Pressable>
     )
 }
 

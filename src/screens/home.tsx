@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import { FlatList, ScrollView, TextInput } from 'react-native-gesture-handler';
 //@ts-ignore
 import Orientation from 'react-native-orientation';
@@ -13,6 +13,8 @@ import constants, { BASE_URL } from '../utils/constants';
 import { ILiveChannelListItem } from '../components/LiveChannelListItem';
 import * as RootNavitaion from "../rootNavigation";
 import { color } from 'react-native-reanimated';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Header } from '@react-navigation/stack';
 
 
 export default function Home(props: any) {
@@ -96,6 +98,9 @@ export default function Home(props: any) {
 
     return (
         <ScrollView style={{ backgroundColor: "black" }}>
+            <StatusBar barStyle="light-content"/>
+            <SafeAreaView style={{ backgroundColor: "black" , flex: 1}}>
+            </SafeAreaView>
             <View style={styles.searchBoxContainer}>
                 <TextInput
                     placeholder="Search"

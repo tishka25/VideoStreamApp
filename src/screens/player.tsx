@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { StyleSheet, Text, View, Button, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Button, Dimensions, StatusBar } from 'react-native';
 //@ts-ignore
-import VideoPlayer from 'react-native-video-player';
+// import VideoPlayer from 'react-native-video-player';
+import Video from "react-native-video";
 import Orientation from 'react-native-orientation';
 import { useFocusEffect } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -10,6 +11,8 @@ import network from '../utils/network';
 import * as RootNavitaion from "../rootNavigation";
 import CloseIcon from '../components/CloseIcon';
 import LoadingIndicator from '../components/LoadingIndicator';
+//@ts-ignore
+import { HomeIndicator } from 'react-native-home-indicator';
 
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Player'>;
@@ -18,9 +21,11 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Player'>;
 export default function Player({ navigation, route }: Props) {
 
   useEffect(() => {
-    Orientation.lockToLandscape()
+    // Orientation.lockToLandscape()
     return () => {
-      Orientation.lockToPortrait()
+      // Orientation.lockToPortrait();
+      // Stop source loading
+      setVideoURL(undefined);
     }
   }, []);
 
@@ -80,43 +85,52 @@ export default function Player({ navigation, route }: Props) {
     React.useCallback(() => {
       // Do something when the screen is focused
       setFullScreen(true);
+      StatusBar.setHidden(true);
       // setTabBarVisible(false);
       return () => {
         // Do something when the screen is unfocused
         // Useful for cleanup functions
         setFullScreen(false);
+      StatusBar.setHidden(false);
         // setTabBarVisible(true);
       };
     }, [])
   );
 
-
   return (
     <View style={styles.container} onLayout={() => setDimensions({ width: Dimensions.get("screen").width, height: Dimensions.get("screen").height })}>
-      {videoControlShown && <CloseIcon style={styles.closeIcon} onPress={()=> RootNavitaion.goBack()} />}
-      {videoURL ? <VideoPlayer
-        endWithThumbnail
-        // thumbnail={{ uri: thumbnail }}
-        video={{ uri: videoURL }}
+      <HomeIndicator autoHidden/>
+      {videoURL != undefined ? <Video
+        source={{ uri: videoURL }}
         ref={player}
-        // Invert width & height for landscape playing
-        videoWidth={Dimensions.get("screen").height}
-        videoHeight={Dimensions.get("screen").width}
-        showDuration
+        // onBuffer={(e: any)=>console.log("Buffer:", e)}
+        // onError={(e: any)=>console.log("Error:", e)}
         autoplay
-        fullscreen={fullscreen}
-        fullscreenOrientation="landscape"
-        controlsTimeout={1000}
-        onShowControls={()=>{
-          setVideoControlShown(true);
-          clearTimeout(controlsTimeout.current);
-          controlsTimeout.current = setTimeout(_=>{
-            setVideoControlShown(false);
-          }, 1000)
-        }}
+        style={styles.video}
+        fullscreen={true}
+        // controls={false}
+        resizeMode={"contain"}
+        // Invert width & height for landscape playing
+        // videoWidth={Dimensions.get("screen").width}
+        // videoHeight={Dimensions.get("screen").height}
+        // autoplay
+        // fullscreen={fullscreen}
+        // fullscreenOrientation="landscape"
+        // onError={(e: any)=>console.log("Video error",e)}
+        // resizeMode="cover"
+        // controlsTimeout={1000}
+        // onShowControls={()=>{
+        //   setVideoControlShown(true);
+        //   clearTimeout(controlsTimeout.current);
+        //   controlsTimeout.current = setTimeout(_=>{
+        //     setVideoControlShown(false);
+        //   }, 1000)
+        // }}
         /> :
         <LoadingIndicator />
       }
+      {<CloseIcon style={styles.closeIcon} onPress={()=> RootNavitaion.goBack()} />}
+
     </View>
   );
 }
@@ -128,10 +142,17 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  video: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
   closeIcon: {
     position: 'absolute',
-    right: 8,
-    top: 8,
+    right: 32,
+    top: 64,
     zIndex: 999,
     backgroundColor: "#00000080",
     borderRadius: 64

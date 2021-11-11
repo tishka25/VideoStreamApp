@@ -10,6 +10,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import CloseIcon from "./CloseIcon";
 import LiveChannelDetailView from "./LiveChannelDetailView";
 import PlayIcon from "./PlayIcon";
+import * as RootNavitaion from "../rootNavigation";
+
 
 export interface ILiveChannelListItem {
     imageSrc: string;
@@ -33,7 +35,7 @@ export function LiveChannelListItem(props: ILiveChannelListItem & { onPress?: ()
     },[selected]);
 
     function handlePress(){
-        setSelected('hide');
+        RootNavitaion.navigate("LiveChannelDetailView", props);
         if(props.onPress)
             props.onPress()
     }
@@ -48,7 +50,7 @@ export function LiveChannelListItem(props: ILiveChannelListItem & { onPress?: ()
                 <Image source={{ uri: props.logoSrc }} style={styles.channelListItemLogo} resizeMode="contain"/>
                 <Text style={{ color: "white", marginBottom: 8 }}>{props.channelName}</Text>
             </View>
-            <LiveChannelDetailView {...props} visible={selected==='show'} onClose={()=>setSelected('undefined')}/>
+            {/* <LiveChannelDetailView {...props} visible={selected==='show'} onClose={()=>setSelected('undefined')}/> */}
         </TouchableOpacity>
     )
 }

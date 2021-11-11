@@ -1,9 +1,12 @@
+import { ILiveChannelListItem } from "./components/LiveChannelListItem";
+
 export type RootStackParamList = {
     Launcher: any,
     Login: any,
     HomeTabs: any,
     Player: {id: string, isLive: boolean},
-    RecordingsForChannel: {cid: number | number}
+    RecordingsForChannel: {cid: number | number},
+    LiveChannelDetailView: ILiveChannelListItem
 }
 
 export type RootTabParamList = {

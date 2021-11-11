@@ -58,6 +58,7 @@ export default function RecordingsListViewSlow(props: Props) {
                     titleFontSize={normalize(14)}
                     subtitleFontSize={normalize(12)}
                     onPress={()=> OpenPlayer(item.bid) }
+                    key={item.bid}
                 />
                 );
             })

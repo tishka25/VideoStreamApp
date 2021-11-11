@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ImageBackground, Modal, StyleSheet, ScrollView, View } from "react-native";
+import { ImageBackground, Modal, StyleSheet, ScrollView, View, Platform } from "react-native";
 import CloseIcon from "./CloseIcon";
 import { ILiveChannelListItem } from "./LiveChannelListItem";
 import PlayIcon from "./PlayIcon";
@@ -8,8 +8,12 @@ import Title from "./Title";
 import RecordingsListViewSlow from "./RecordingsListViewSlow";
 import TvizioButton from "./TvizioButton";
 import * as RootNavitaion from "../rootNavigation";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../types";
 
-export default function LiveChannelDetailView(props: ILiveChannelListItem & { onClose?: () => void, visible?: boolean }) {
+
+type Props = NativeStackScreenProps<RootStackParamList, 'LiveChannelDetailView'>;
+export default function LiveChannelDetailView({ navigation, route }: Props) {
 
     const [recordingsLoaded, setRecordingsLoaded] = useState(false);
 
@@ -19,28 +23,28 @@ export default function LiveChannelDetailView(props: ILiveChannelListItem & { on
     }
 
     return (
-        <Modal
-            visible={props.visible}
-            animationType="fade"
-            transparent
-            onRequestClose={props.onClose}
-        >
+        // <Modal
+        //     visible={props.visible}
+        //     animationType="fade"
+        //     transparent
+        //     onRequestClose={props.onClose}
+        // >
             <View style={styles.modalView}>
                 <View style={styles.channelListItemDetailContainer}>
-                    <CloseIcon style={styles.closeIcon} onPress={props.onClose} />
+                    <CloseIcon style={styles.closeIcon} onPress={()=> RootNavitaion.goBack() } />
                     <ScrollView style={{ width: "100%" }}>
-                        <ImageBackground source={{ uri: props.imageSrc }} resizeMode="cover" style={styles.imageBackground}>
-                            <PlayIcon style={{ zIndex:999 }} onPress={()=> OpenPlayer(props.cid) }/>
+                        <ImageBackground source={{ uri: route.params.imageSrc }} resizeMode="cover" style={styles.imageBackground}>
+                            <PlayIcon style={{ zIndex:999 }} onPress={()=> OpenPlayer(route.params.cid) }/>
                         </ImageBackground>
                         <ListItemDetail
-                            title={props.currentShowName}
-                            subtitle={`${props.start} - ${props.startNext}`}
-                            imageSrc={props.logoSrc}
+                            title={route.params.currentShowName}
+                            subtitle={`${route.params.start} - ${route.params.startNext}`}
+                            imageSrc={route.params.logoSrc}
                         />
                         <View style={{ alignSelf: "flex-start" }}>
-                            <Title name={(props.rec ? "Предишни предавания за деня" : "Този канал няма записи")} />
+                            <Title name={(route.params.rec ? "Предишни предавания за деня" : "Този канал няма записи")} />
                         </View>
-                        {props.rec && <RecordingsListViewSlow cid={props.cid} onLoad={() => setRecordingsLoaded(true)} />}
+                        {route.params.rec && <RecordingsListViewSlow cid={route.params.cid} reverse onLoad={() => setRecordingsLoaded(true)} />}
                         {recordingsLoaded && 
                             <TvizioButton 
                                 customStyle={{ alignSelf: "center", marginBottom: 32}} 
@@ -51,14 +55,14 @@ export default function LiveChannelDetailView(props: ILiveChannelListItem & { on
 
                 </View>
             </View>
-        </Modal>
+        // </Modal>
     );
 }
 
 const styles = StyleSheet.create({
     channelListItemDetailContainer: {
-        width: "95%",
-        height: "95%",
+        width: "100%",
+        height: "100%",
         backgroundColor: "black",
         elevation: 5,
         borderRadius: 8,
@@ -72,6 +76,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
+        marginTop: Platform.OS === 'ios' ? 80 : 0
     },
     channelListItemTouchableContainer: {
         width: "100%",
@@ -84,6 +89,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignContent: "center",
         zIndex: 100,
+        backgroundColor: "black"
     },
     closeIcon: {
         position: 'absolute',
