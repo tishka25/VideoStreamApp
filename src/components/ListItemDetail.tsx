@@ -23,7 +23,7 @@ export default function ListItemDetail(props: Props) {
                 <View style={styles.col}>
                     <View style={[styles.row, { alignItems: "center" }]}>
                         <Image source={{ uri: props.imageSrc }} resizeMode="contain" style={styles.channelListItemLogo} />
-                        <View style={[styles.col, { justifyContent: "center", marginLeft: 8 }]}>
+                        <View style={[styles.col, { justifyContent: "space-between", marginLeft: 8 }]}>
                             <Text style={[styles.title, { fontSize: props.titleFontSize || defaultTitleFontSize }]}>{props.title}</Text>
                             <Text style={[styles.subtitle, { fontSize: props.subtitleFontSize || defaultSubtitleFontSize }]}>{props.subtitle}</Text>
                         </View>
@@ -35,7 +35,7 @@ export default function ListItemDetail(props: Props) {
 }
 
 const styles = StyleSheet.create({
-    container: { width: "100%", paddingLeft: 8, paddingRight: 8, backgroundColor: undefined },
+    container: { width: "100%", paddingLeft: 8, paddingRight: 8, backgroundColor: undefined, marginVertical: 8 },
     row: {
         flex: 1,
         flexDirection: "row"
