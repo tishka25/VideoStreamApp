@@ -54,5 +54,5 @@ const styles = StyleSheet.create({
         fontWeight: "normal",
         marginLeft: 32,
     },
-    channelListItemLogo: { width: undefined, height: 64, aspectRatio: 1 },
+    channelListItemLogo: { width: undefined, height: 100, aspectRatio: 1 },
 })
