@@ -78,12 +78,15 @@ export default function Home(props: any) {
 
     function renderSearchBox(){
         return (
-            <View style={styles.searchBoxContainer}>
-                <TextInput
-                    placeholder="Search"
-                    placeholderTextColor="#666"
-                    style={styles.searchBox}
-                />
+            <View>
+                <SafeAreaView />
+                <View style={styles.searchBoxContainer}>
+                    <TextInput
+                        placeholder="Search"
+                        placeholderTextColor="#666"
+                        style={styles.searchBox}
+                    />
+                </View>
             </View>
         )
     }
@@ -185,7 +188,6 @@ const styles = StyleSheet.create({
         elevation: 10,
         borderRadius: 4,
         marginBottom: 14,
-        marginVertical: 64,
         width: "95%",
         flexDirection: "row",
         alignSelf: "center",
