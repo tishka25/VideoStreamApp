@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
     Image,
-    Modal,
     StyleSheet,
     Text,
     View,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import CloseIcon from "./CloseIcon";
-import LiveChannelDetailView from "./LiveChannelDetailView";
-import PlayIcon from "./PlayIcon";
 import * as RootNavitaion from "../rootNavigation";
 
 
@@ -50,14 +46,13 @@ export function LiveChannelListItem(props: ILiveChannelListItem & { onPress?: ()
                 <Image source={{ uri: props.logoSrc }} style={styles.channelListItemLogo} resizeMode="contain"/>
                 <Text style={{ color: "white", marginBottom: 8 }}>{props.channelName}</Text>
             </View>
-            {/* <LiveChannelDetailView {...props} visible={selected==='show'} onClose={()=>setSelected('undefined')}/> */}
         </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
     channelListItemBackground: { width: 214, height: 120},
-    channelListItemLogo: {width: undefined, height: 64, aspectRatio: 1, marginTop: 8},
+    channelListItemLogo: {width: undefined, height: 100, aspectRatio: 1},
     channelListItemSeparator: { position: "absolute", height: 2, width: "100%", backgroundColor: "#7A00EE", opacity: 0.8 },
     channelListItemTouchableContainer: {
         width: "100%",
