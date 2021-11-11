@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { FlatList, ScrollView, TextInput } from 'react-native-gesture-handler';
 //@ts-ignore
 import Orientation from 'react-native-orientation';
@@ -12,6 +12,7 @@ import LiveChannelList from '../components/LiveChannelList';
 import constants, { BASE_URL } from '../utils/constants';
 import { ILiveChannelListItem } from '../components/LiveChannelListItem';
 import * as RootNavitaion from "../rootNavigation";
+import { color } from 'react-native-reanimated';
 
 
 export default function Home(props: any) {
@@ -23,7 +24,7 @@ export default function Home(props: any) {
 
     const [historyList, setHistoryList] = useState<ICarouselViewItem[]>([]);
     const [liveList, setLiveList] = useState<ILiveChannelListItem[]>([]);
-    const [isSearching, setIsSearchin] = useState(false);
+    const [isSearching, setIsSearching] = useState(false);
 
     // const [lastWatchedMovie, setLastMovie] = useState(gallery[0]);
 
@@ -87,6 +88,12 @@ export default function Home(props: any) {
         )
     }
 
+    function renderSearchView(){
+        return (
+            <Text style={{color: "white"}}>Search view</Text>
+        )
+    }
+
     return (
         <ScrollView style={{ backgroundColor: "black" }}>
             <View style={styles.searchBoxContainer}>
@@ -94,9 +101,11 @@ export default function Home(props: any) {
                     placeholder="Search"
                     placeholderTextColor="#666"
                     style={styles.searchBox}
+                    onBegan={()=>setIsSearching(true)}
+                    onEndEditing={()=>setIsSearching(false)}
                 />
             </View>
-            {renderMainView()}
+            {isSearching ?  renderSearchView() : renderMainView()}
 
             {/* Continue to watch section */}
             {/* <View style={{ marginHorizontal: 14 }}>
