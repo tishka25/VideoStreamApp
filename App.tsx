@@ -1,9 +1,9 @@
 import 'react-native-gesture-handler';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { LogBox, Platform, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import { CardStyleInterpolators, createStackNavigator, TransitionSpecs } from '@react-navigation/stack';
 import Orientation from 'react-native-orientation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from './src/screens/home';
@@ -26,7 +26,7 @@ function Screens(props: any) {
       initialRouteName="Launcher"
       screenOptions={{
         headerShown: false,
-        gestureEnabled: false,
+        gestureEnabled: false
       }}
     >
       <Stack.Screen 
@@ -35,18 +35,31 @@ function Screens(props: any) {
       />
       <Stack.Screen 
         name="Login"
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
+        }}
         component={Login}
       />
       <Stack.Screen
         name="HomeTabs"
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
+        }}
         component={Tabs}
       />
       <Stack.Screen
         name="Player"
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
+        }}
         component={Player}
       />
       <Stack.Screen
         name="LiveChannelDetailView"
+        options={{
+          cardStyleInterpolator: Platform.OS === 'ios' ? 
+          CardStyleInterpolators.forVerticalIOS  : CardStyleInterpolators.forBottomSheetAndroid,
+        }}
         component={LiveChannelDetailView}
       />
     </Stack.Navigator>
@@ -91,7 +104,9 @@ function Tabs() {
 
 export default function App() {
 
-  Orientation.lockToPortrait()
+  Orientation.lockToPortrait();
+  LogBox.ignoreLogs(['Warning: ...']);
+
 
   return (
     <NavigationContainer ref={navigationRef}>
