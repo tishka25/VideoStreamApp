@@ -20,12 +20,19 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Player'>;
 
 export default function Player({ navigation, route }: Props) {
 
+  
+  function exit(){
+    // Stop source loading
+    setVideoURL(undefined);
+    Orientation.lockToPortrait();
+    RootNavitaion.goBack();
+
+  }
+
   useEffect(() => {
-    // Orientation.lockToLandscape()
+    Orientation.lockToLandscape()
     return () => {
-      // Orientation.lockToPortrait();
-      // Stop source loading
-      setVideoURL(undefined);
+      
     }
   }, []);
 
@@ -103,33 +110,15 @@ export default function Player({ navigation, route }: Props) {
       {videoURL != undefined ? <Video
         source={{ uri: videoURL }}
         ref={player}
-        // onBuffer={(e: any)=>console.log("Buffer:", e)}
-        // onError={(e: any)=>console.log("Error:", e)}
         autoplay
         style={styles.video}
         fullscreen={true}
-        // controls={false}
+        controls={false}
         resizeMode={"contain"}
-        // Invert width & height for landscape playing
-        // videoWidth={Dimensions.get("screen").width}
-        // videoHeight={Dimensions.get("screen").height}
-        // autoplay
-        // fullscreen={fullscreen}
-        // fullscreenOrientation="landscape"
-        // onError={(e: any)=>console.log("Video error",e)}
-        // resizeMode="cover"
-        // controlsTimeout={1000}
-        // onShowControls={()=>{
-        //   setVideoControlShown(true);
-        //   clearTimeout(controlsTimeout.current);
-        //   controlsTimeout.current = setTimeout(_=>{
-        //     setVideoControlShown(false);
-        //   }, 1000)
-        // }}
         /> :
         <LoadingIndicator />
       }
-      {<CloseIcon style={styles.closeIcon} onPress={()=> RootNavitaion.goBack()} />}
+      {<CloseIcon style={styles.closeIcon} onPress={exit} />}
 
     </View>
   );
