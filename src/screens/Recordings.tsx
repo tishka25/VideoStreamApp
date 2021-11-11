@@ -1,7 +1,7 @@
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, RefreshControl, StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Title from '../components/Title';
@@ -10,6 +10,7 @@ import * as RootNavigation from "../rootNavigation";
 import channels, { LiveChannelItem } from '../utils/channels';
 import LoadingIndicator from '../components/LoadingIndicator';
 import { BASE_URL } from '../utils/constants';
+import RecordingListItemChannelLogo from '../components/RecordingListItemChannelLogo';
 
 type Props = NativeStackNavigationProp<RootTabParamList, 'Recordings'>;
 
@@ -25,16 +26,13 @@ export default function Recordings(props: Props) {
         loadData();
     }, []);
 
+
     function renderChannels(){
         return(
             recordedChannels.map(channel=>{
                 return (
                     <View style={styles.listItem}>
-                        <Image 
-                            source={{ uri: `${BASE_URL}${channel.logo}` }} 
-                            resizeMode="contain" 
-                            style={styles.channelListItemLogo} 
-                        />
+                        <RecordingListItemChannelLogo imageSrc={`${BASE_URL}${channel.logo}`}/>
                     </View>
                 );
             })
@@ -45,7 +43,9 @@ export default function Recordings(props: Props) {
         <View style={styles.container}>
             <SafeAreaView />
             <Title name="Записи за канали" />
-            <ScrollView style={styles.container}>
+            <ScrollView 
+                style={styles.scrollContainer}
+            >
                 <View style={styles.innerContainer}>
                     {recordedChannels.length > 0 ? renderChannels() : <LoadingIndicator />}
                 </View>
@@ -68,12 +68,12 @@ const styles = StyleSheet.create({
     innerContainer: {
         flex: 1, 
         flexDirection: 'row', 
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        justifyContent: "space-between",
+        alignItems: "center"
     },
-    channelListItemLogo: { width: undefined, height: 80, aspectRatio: 1, marginTop: 48, marginHorizontal: 8},
     listItem: {
-        // flex:1,
-        width:"33%"
+        width:"33%",
     }
 
 });
