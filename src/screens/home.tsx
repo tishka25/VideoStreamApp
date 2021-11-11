@@ -23,6 +23,7 @@ export default function Home(props: any) {
 
     const [historyList, setHistoryList] = useState<ICarouselViewItem[]>([]);
     const [liveList, setLiveList] = useState<ILiveChannelListItem[]>([]);
+    const [isSearching, setIsSearchin] = useState(false);
 
     // const [lastWatchedMovie, setLastMovie] = useState(gallery[0]);
 
@@ -52,7 +53,8 @@ export default function Home(props: any) {
                 elapsed: item.elapsed,
                 start: item.start,
                 startNext: item.start_next,
-                cid: item.cid
+                cid: item.cid,
+                rec: item.rec === "1"
             }
         }));
         setLoading(false);
@@ -71,18 +73,9 @@ export default function Home(props: any) {
         RootNavitaion.navigate("Player", { isLive: false, id })
     }
 
-    return (
-        // <View >
-        //     {loading ? <ActivityIndicator/> : 
-        <ScrollView style={{ backgroundColor: "black" }}>
-            <View style={styles.searchBoxContainer}>
-                <TextInput
-                    placeholder="Search"
-                    placeholderTextColor="#666"
-                    style={styles.searchBox}
-                />
-            </View>
-            {loading ? <LoadingIndicator /> :
+    function renderMainView(){
+        return (
+            loading ? <LoadingIndicator /> :
                 <View>
                     <CarouselView
                         name="Последно гледани"
@@ -91,7 +84,19 @@ export default function Home(props: any) {
                     />
                     <LiveChannelList items={liveList} />
                 </View>
-            }
+        )
+    }
+
+    return (
+        <ScrollView style={{ backgroundColor: "black" }}>
+            <View style={styles.searchBoxContainer}>
+                <TextInput
+                    placeholder="Search"
+                    placeholderTextColor="#666"
+                    style={styles.searchBox}
+                />
+            </View>
+            {renderMainView()}
 
             {/* Continue to watch section */}
             {/* <View style={{ marginHorizontal: 14 }}>

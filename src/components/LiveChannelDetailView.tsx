@@ -38,9 +38,9 @@ export default function LiveChannelDetailView(props: ILiveChannelListItem & { on
                             imageSrc={props.logoSrc}
                         />
                         <View style={{ alignSelf: "flex-start" }}>
-                            <Title name="Предишни предавания за деня" />
+                            <Title name={(props.rec ? "Предишни предавания за деня" : "Този канал няма записи")} />
                         </View>
-                        <RecordingsListViewSlow cid={props.cid} onLoad={() => setRecordingsLoaded(true)} />
+                        {props.rec && <RecordingsListViewSlow cid={props.cid} onLoad={() => setRecordingsLoaded(true)} />}
                         {recordingsLoaded && 
                             <TvizioButton 
                                 customStyle={{ alignSelf: "center", marginBottom: 32}} 
