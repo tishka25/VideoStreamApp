@@ -14,6 +14,7 @@ import { navigationRef } from './src/rootNavigation';
 import Login from './src/screens/login';
 import Launcher from './src/screens/launcher';
 import LiveChannelDetailView from './src/screens/LiveChannelDetailView';
+import RecordingsForChannel from './src/screens/RecordingsForChannel';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -62,14 +63,15 @@ function Screens(props: any) {
         }}
         component={LiveChannelDetailView}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         name="RecordingsForChannel"
         options={{
+          gestureEnabled: true,
           cardStyleInterpolator: Platform.OS === 'ios' ? 
-          CardStyleInterpolators.forVerticalIOS  : CardStyleInterpolators.forBottomSheetAndroid,
+          CardStyleInterpolators.forHorizontalIOS  : CardStyleInterpolators.forFadeFromCenter,
         }}
-        component={LiveChannelDetailView}
-      /> */}
+        component={RecordingsForChannel}
+      />
     </Stack.Navigator>
   )
 }
@@ -114,6 +116,7 @@ export default function App() {
 
   Orientation.lockToPortrait();
   LogBox.ignoreLogs(['Warning: ...']);
+  LogBox.ignoreAllLogs(true);
 
 
   return (

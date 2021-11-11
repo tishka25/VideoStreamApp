@@ -5,7 +5,7 @@ export type RootStackParamList = {
     Login: any,
     HomeTabs: any,
     Player: {id: string, isLive: boolean},
-    RecordingsForChannel: {cid: number | number},
+    RecordingsForChannel: {cid: string | number},
     LiveChannelDetailView: ILiveChannelListItem
 }
 

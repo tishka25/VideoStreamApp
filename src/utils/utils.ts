@@ -1,6 +1,6 @@
 import datetime from "./datetime";
 
-export function getScreenshotUrl(cid: string, bid: string) {
+export function getScreenshotUrl(cid: string | number, bid: string) {
   return `https://www.tvizio.bg/caps/rec_multi/${cid}_${bid}_1.png`;
 }
 

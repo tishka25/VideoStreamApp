@@ -15,6 +15,7 @@ import * as RootNavitaion from "../rootNavigation";
 import { color } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Header } from '@react-navigation/stack';
+import { normalize } from '../utils/normalize';
 
 
 export default function Home(props: any) {
@@ -193,7 +194,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
     },
     searchBox: {
-        padding: 20,
+        padding: normalize(14),
         paddingLeft: 20,
         fontSize: 16,
     },

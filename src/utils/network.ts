@@ -120,7 +120,7 @@ export default new class Network{
     }
 
     async getRecordingURLs(bid: string | number){
-        const _url = constant.GET_RECORDING_API_URL + "&bid=" + bid + "q=" + user.calculateQ() + "&player=" + system.getName()
+        const _url = constant.GET_RECORDING_API_URL + "&bid=" + bid + "&q=" + user.calculateQ() + "&player=" + system.getName()
                     + '&mquality=1';
         return await this._getJSON(_url);
     }

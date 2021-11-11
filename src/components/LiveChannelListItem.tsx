@@ -41,7 +41,7 @@ export function LiveChannelListItem(props: ILiveChannelListItem & { onPress?: ()
             onPress={handlePress}
         >
             <Image source={{ uri: props.imageSrc }} style={styles.channelListItemBackground} resizeMode="contain"/>
-            <View style={styles.channelListItemSeparator} ></View>
+            {/* <View style={styles.channelListItemSeparator} ></View> */}
             <View style={styles.channelListItemContainer}>
                 <Image source={{ uri: props.logoSrc }} style={styles.channelListItemLogo} resizeMode="contain"/>
                 <Text style={{ color: "white", marginBottom: 8 }}>{props.channelName}</Text>

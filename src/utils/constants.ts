@@ -1,5 +1,7 @@
-// ants for URLs
+import { Platform } from "react-native";
 
+// ants for URLs
+export const tvizioLogo = require("../icons/tvizio_logo.png");
 export const BASE_URL = "https://www.tvizio.bg/";
 export const BASE_API_URL = "https://www.tvizio.bg/php/api.php?path=";
 export default {
@@ -51,8 +53,8 @@ export default {
     REWIND_ICON: "images/icons/rewind.svg",
     //
 
-    APP_NAME: "lgtvapp",
-    APP_VERSION: "2.1.6",
+    APP_NAME: Platform.OS,
+    APP_VERSION: "1.0.0",
 
     MAX_DESCRIPTION_LENGTH: 187,
     DEFAULT_SIZE_OF_PAGES: 5,

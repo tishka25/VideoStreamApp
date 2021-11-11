@@ -74,6 +74,17 @@ export default function CarouselView(props: Props) {
     const carouselRef = useRef(null);
     const { width, height } = Dimensions.get("window");
 
+    const onViewRef = React.useRef((response: any)=> {
+        console.log(response)
+        // Use viewable items in state or as intended
+        // Select middle one
+        const viewableItems = response.viewableItems;
+        const len = viewableItems.length;
+        const middleItem = viewableItems[len - 2];
+        if(middleItem)
+            setSelectedMovie(middleItem.item);
+    })
+
     //@ts-ignore
     const renderItem = ({ item, index }) => {
         return (
@@ -82,7 +93,6 @@ export default function CarouselView(props: Props) {
                     if(carouselRef != null){
                         //@ts-ignore
                         carouselRef.current.scrollToIndex(index);
-                        setSelectedMovie(item);
                     }
                 }}
                 title={item.title}
@@ -114,6 +124,8 @@ export default function CarouselView(props: Props) {
                             separatorWidth={16}
                             ref={carouselRef}
                             inActiveOpacity={0.4}
+                            // keyExtractor={(_: any, index: any) => console.log(index.toString())}
+                            // onViewableItemsChanged={onViewRef.current}
                         />
                     </View>
 

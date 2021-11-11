@@ -13,13 +13,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 
 type Props = NativeStackScreenProps<RootStackParamList, 'LiveChannelDetailView'>;
-export default function LiveChannelDetailView({ navigation, route }: Props) {
+export default function LiveChannelDetailView({ navigation, route,  }: Props) {
 
     const [recordingsLoaded, setRecordingsLoaded] = useState(false);
 
     function OpenPlayer(id: string) {
         console.log("Opening player");
         RootNavitaion.navigate("Player", { isLive: true, id })
+    }
+    function ShowAllRecordings() {
+        RootNavitaion.navigate("RecordingsForChannel", { cid: route.params.cid })
     }
 
     return (
@@ -44,6 +47,7 @@ export default function LiveChannelDetailView({ navigation, route }: Props) {
                             <TvizioButton
                                 customStyle={{ alignSelf: "center", marginBottom: 32 }}
                                 title="Покажи всички"
+                                onPress={ShowAllRecordings}
                             />
                             <SafeAreaView />
                         </View>

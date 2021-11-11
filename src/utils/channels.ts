@@ -51,6 +51,19 @@ class Channels {
             return [];
         }
     }
+
+    async getChannelInfo(cid: string | number) {
+        try {
+            const channel_list = await network.getChannels();
+            //@ts-ignore
+            const channel_info = channel_list.filter((channel: any)=> channel.cid == cid)[0];
+            if(channel_info)
+                return Object.assign({}, channel_info);   
+        } catch (error) {
+            console.log("Could not get channel info:", error);
+            return null;
+        }
+    }
 }
 
 export default new Channels();
