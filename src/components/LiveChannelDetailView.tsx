@@ -18,49 +18,40 @@ export default function LiveChannelDetailView({ navigation, route }: Props) {
 
     const [recordingsLoaded, setRecordingsLoaded] = useState(false);
 
-    function OpenPlayer(id: string){
+    function OpenPlayer(id: string) {
         console.log("Opening player");
         RootNavitaion.navigate("Player", { isLive: true, id })
     }
 
     return (
-        // <Modal
-        //     visible={props.visible}
-        //     animationType="fade"
-        //     transparent
-        //     onRequestClose={props.onClose}
-        // >
-            <View style={styles.modalView}>
-                <View style={styles.channelListItemDetailContainer}>
-                    <CloseIcon style={styles.closeIcon} onPress={()=> RootNavitaion.goBack() } />
-                    <ScrollView style={{ width: "100%" }} bounces={false}>
-                        <ImageBackground source={{ uri: route.params.imageSrc }} resizeMode="cover" style={styles.imageBackground}>
-                            <PlayIcon style={{ zIndex:999 }} onPress={()=> OpenPlayer(route.params.cid) }/>
-                        </ImageBackground>
-                        <ListItemDetail
-                            title={route.params.currentShowName}
-                            subtitle={`${route.params.start} - ${route.params.startNext}`}
-                            imageSrc={route.params.logoSrc}
-                        />
-                        <View style={{ alignSelf: "flex-start" }}>
-                            <Title name={(route.params.rec ? "Предишни предавания за деня" : "Този канал няма записи")} />
+        <View style={styles.modalView}>
+            <View style={styles.channelListItemDetailContainer}>
+                <CloseIcon style={styles.closeIcon} onPress={() => RootNavitaion.goBack()} />
+                <ScrollView style={{ width: "100%" }} bounces={false}>
+                    <ImageBackground source={{ uri: route.params.imageSrc }} resizeMode="cover" style={styles.imageBackground}>
+                        <PlayIcon style={{ zIndex: 999 }} onPress={() => OpenPlayer(route.params.cid)} />
+                    </ImageBackground>
+                    <ListItemDetail
+                        title={route.params.currentShowName}
+                        subtitle={`${route.params.start} - ${route.params.startNext}`}
+                        imageSrc={route.params.logoSrc}
+                    />
+                    <View style={{ alignSelf: "flex-start" }}>
+                        <Title name={(route.params.rec ? "Предишни предавания за деня" : "Този канал няма записи")} />
+                    </View>
+                    {route.params.rec && <RecordingsListViewSlow cid={route.params.cid} reverse onLoad={() => setRecordingsLoaded(true)} />}
+                    {recordingsLoaded &&
+                        <View>
+                            <TvizioButton
+                                customStyle={{ alignSelf: "center", marginBottom: 32 }}
+                                title="Покажи всички"
+                            />
+                            <SafeAreaView />
                         </View>
-                        {route.params.rec && <RecordingsListViewSlow cid={route.params.cid} reverse onLoad={() => setRecordingsLoaded(true)} />}
-                        {recordingsLoaded && 
-                            <View>
-                                <TvizioButton 
-                                    customStyle={{ alignSelf: "center", marginBottom: 32}} 
-                                    title="Покажи всички" 
-                                />
-                                <SafeAreaView/>
-                            </View>
-                        }
-
-                    </ScrollView>
-
-                </View>
+                    }
+                </ScrollView>
             </View>
-        // </Modal>
+        </View>
     );
 }
 
