@@ -10,6 +10,7 @@ import TvizioButton from "./TvizioButton";
 import * as RootNavitaion from "../rootNavigation";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 type Props = NativeStackScreenProps<RootStackParamList, 'LiveChannelDetailView'>;
@@ -46,10 +47,14 @@ export default function LiveChannelDetailView({ navigation, route }: Props) {
                         </View>
                         {route.params.rec && <RecordingsListViewSlow cid={route.params.cid} reverse onLoad={() => setRecordingsLoaded(true)} />}
                         {recordingsLoaded && 
-                            <TvizioButton 
-                                customStyle={{ alignSelf: "center", marginBottom: 32}} 
-                                title="Покажи всички" 
-                            />}
+                            <View>
+                                <TvizioButton 
+                                    customStyle={{ alignSelf: "center", marginBottom: 32}} 
+                                    title="Покажи всички" 
+                                />
+                                <SafeAreaView/>
+                            </View>
+                        }
 
                     </ScrollView>
 
