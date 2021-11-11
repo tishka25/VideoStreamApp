@@ -71,6 +71,7 @@ export default function Home(props: any) {
                         placeholder="Search"
                         placeholderTextColor="#666"
                         style={styles.searchBox}
+                        numberOfLines={1}
                     />
                 </View>
             </View>
@@ -182,5 +183,6 @@ const styles = StyleSheet.create({
         padding: normalize(14),
         paddingLeft: 20,
         fontSize: 16,
+        width: "100%"
     },
 });

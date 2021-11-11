@@ -15,6 +15,7 @@ import Login from './src/screens/login';
 import Launcher from './src/screens/launcher';
 import LiveChannelDetailView from './src/screens/LiveChannelDetailView';
 import RecordingsForChannel from './src/screens/RecordingsForChannel';
+import Recordings from './src/screens/Recordings';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -85,8 +86,9 @@ function Tabs() {
       screenOptions={{
           tabBarActiveTintColor: '#987bf3',
           tabBarInactiveTintColor: '#dedede',
-          tabBarStyle: { backgroundColor: "#151415", padding: 4 },
-          headerShown: false
+          tabBarStyle: { backgroundColor: "#151415", padding: 8 },
+          headerShown: false,
+          tabBarShowLabel: false,
         }}
     >
       <Tab.Screen
@@ -96,8 +98,16 @@ function Tabs() {
             <Ionicons name="home" color={color} size={size} />
           ),
         }}
-        // component={(props)=> <Screens {...props}/>}
         component={Home}
+      />
+      <Tab.Screen
+        name="Recordings"
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="recording-outline" color={color} size={size} />
+          ),
+        }}
+        component={Recordings}
       />
       <Tab.Screen
         name="Profile"
