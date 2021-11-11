@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StatusBar, StyleSheet, Text, View } from 'react-native';
+import { RefreshControl, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { FlatList, ScrollView, TextInput } from 'react-native-gesture-handler';
 //@ts-ignore
 import Orientation from 'react-native-orientation';
@@ -28,11 +28,17 @@ export default function Home(props: any) {
     const [historyList, setHistoryList] = useState<ICarouselViewItem[]>([]);
     const [isSearching, setIsSearching] = useState(false);
 
-    // const [lastWatchedMovie, setLastMovie] = useState(gallery[0]);
+    const [refreshing, setRefreshing] = React.useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        loadData();
+      }, []);
+
 
     useEffect(()=>{
         if(historyList.length > 0){
             setLoading(false);
+            setRefreshing(false);
         }
     }, [historyList]);
 
@@ -88,7 +94,7 @@ export default function Home(props: any) {
                         onSelect={OpenPlayer}
                         header={renderSearchBox()}
                     />}
-                    <LiveChannelList />
+                    <LiveChannelList refresh={refreshing}/>
                 </View>
         )
     }
@@ -100,7 +106,15 @@ export default function Home(props: any) {
     }
 
     return (
-        <ScrollView style={{ backgroundColor: "black" }} bounces={false}>
+        <ScrollView 
+            style={{ backgroundColor: "black" }}
+            refreshControl={
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={onRefresh}
+                />
+            }
+        >
             <StatusBar barStyle="light-content"/>
             {/* <SafeAreaView style={{ backgroundColor: "black" , flex: 1}}>
             </SafeAreaView> */}

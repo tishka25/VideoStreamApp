@@ -77,7 +77,6 @@ export default function CarouselView(props: Props) {
     const onViewRef = React.useRef((response: any)=> {
         // Use viewable items in state or as intended
         const viewableItems = response.viewableItems;
-        console.log(viewableItems);
         const len = viewableItems.length;
         // Select middle one
         const middleItem = viewableItems[len - 2] || viewableItems[0];
