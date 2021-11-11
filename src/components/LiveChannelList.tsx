@@ -1,27 +1,62 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-    Dimensions,
-    Image,
-    Modal,
     StyleSheet,
-    Text,
     View,
 } from "react-native";
-import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
-import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
-import CloseIcon from "./CloseIcon";
+import { BASE_URL } from "../utils/constants";
+import network from "../utils/network";
 import { ILiveChannelListItem, LiveChannelListItem } from "./LiveChannelListItem";
+import LoadingIndicator from "./LoadingIndicator";
 import PlayIcon from "./PlayIcon";
 import Title from "./Title";
 
 
 interface Props {
-    items: ILiveChannelListItem[];
+    onLoaded?: ()=>void;
 }
 
 export default function LiveChannelList(props: Props) {
+
+    const [liveList, setLiveList] = useState<ILiveChannelListItem[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(()=>{
+        if(liveList.length > 0){
+            setLoading(false);
+        }
+    }, [liveList]);
+
+    useEffect(()=>{
+        if(!loading && props.onLoaded){
+            props.onLoaded();
+        }
+    }, [loading]);
+    
+
+    async function loadData(){
+        const _liveList = await network.getChannels();
+        setLiveList(_liveList.map((item: any) => {
+            return {
+                imageSrc: `${BASE_URL}${item.background}?hash=${Date.now()}`, //Disable cache
+                logoSrc: `${BASE_URL}${item.logo}`,
+                channelName: item.chName,
+                currentShowName: item.name,
+                nextShowName: item.next_name,
+                elapsed: item.elapsed,
+                start: item.start,
+                startNext: item.start_next,
+                cid: item.cid,
+                rec: item.rec === "1"
+            }
+        }));
+    }
+
+    useEffect(()=>{
+        loadData();
+    },[]);
+
     function renderItems(){
-        return props.items.map((item, index) => {
+        return liveList.map((item, index) => {
             return (
                 <LiveChannelListItem
                     {...item}
@@ -34,7 +69,7 @@ export default function LiveChannelList(props: Props) {
         <View>
             <Title name="Канали на живо"/>
             <View style={{ marginBottom: 30 }}>
-                {renderItems()}
+                {loading ? <LoadingIndicator/> : renderItems()}
             </View>
         </View>
     );

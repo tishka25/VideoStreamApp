@@ -26,10 +26,15 @@ export default function Home(props: any) {
     const [loading, setLoading] = useState(true);
 
     const [historyList, setHistoryList] = useState<ICarouselViewItem[]>([]);
-    const [liveList, setLiveList] = useState<ILiveChannelListItem[]>([]);
     const [isSearching, setIsSearching] = useState(false);
 
     // const [lastWatchedMovie, setLastMovie] = useState(gallery[0]);
+
+    useEffect(()=>{
+        if(historyList.length > 0){
+            setLoading(false);
+        }
+    }, [historyList]);
 
     async function loadData() {
         // Load history
@@ -46,30 +51,10 @@ export default function Home(props: any) {
         });
         setHistoryList(items);
         //
-        const _liveList = await network.getChannels();
-        setLiveList(_liveList.map((item: any) => {
-            return {
-                imageSrc: `${BASE_URL}${item.background}?hash=${Date.now()}`, //Disable cache
-                logoSrc: `${BASE_URL}${item.logo}`,
-                channelName: item.chName,
-                currentShowName: item.name,
-                nextShowName: item.next_name,
-                elapsed: item.elapsed,
-                start: item.start,
-                startNext: item.start_next,
-                cid: item.cid,
-                rec: item.rec === "1"
-            }
-        }));
-        setLoading(false);
     }
 
     useEffect(() => {
         loadData();
-        // const updateInterval = setInterval(()=>{
-        //     loadData();
-        // }, constants.DATA_UPDATE_PERIOD_IN_SECONDS);
-        // return () => clearInterval(updateInterval);
     }, []);
 
 
@@ -94,15 +79,15 @@ export default function Home(props: any) {
 
     function renderMainView(){
         return (
-            loading ? <LoadingIndicator /> :
                 <View>
+                    {loading ? <LoadingIndicator /> : 
                     <CarouselView
                         name="Последно гледани"
                         items={historyList}
                         onSelect={OpenPlayer}
                         header={renderSearchBox()}
-                    />
-                    <LiveChannelList items={liveList} />
+                    />}
+                    <LiveChannelList />
                 </View>
         )
     }
