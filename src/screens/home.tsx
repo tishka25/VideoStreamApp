@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
     },
     searchBox: {
-        padding: 12,
+        padding: 20,
         paddingLeft: 20,
         fontSize: 16,
     },
