@@ -9,7 +9,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types';
 import network from '../utils/network';
 import * as RootNavitaion from "../rootNavigation";
-import CloseIcon from '../components/CloseIcon';
+import BackIcon from '../components/BackIcon';
 import LoadingIndicator from '../components/LoadingIndicator';
 //@ts-ignore
 import { HomeIndicator } from 'react-native-home-indicator';
@@ -118,7 +118,7 @@ export default function Player({ navigation, route }: Props) {
         /> :
         <LoadingIndicator />
       }
-      {<CloseIcon style={styles.closeIcon} onPress={exit} />}
+      {<BackIcon style={styles.BackIcon} onPress={exit} />}
 
     </View>
   );
@@ -138,9 +138,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
   },
-  closeIcon: {
+  BackIcon: {
     position: 'absolute',
-    right: 32,
+    left: 32,
     top: 64,
     zIndex: 999,
     backgroundColor: "#00000080",

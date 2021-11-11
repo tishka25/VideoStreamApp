@@ -9,21 +9,17 @@ interface Props {
     size?: number;
 }
 
-export default function CloseIcon(props: Props) {
+export default function BackIcon(props: Props) {
     return (
-        // <Pressable
-        //     onPress={props.onPress}
-        // >
         <View style={props.style}>
-        <TouchableOpacity onPress={props.onPress}>
-            <FontAwesome5Icon
-                name="times-circle"
-                size={props.size || 32}
-                color="#987bf3"
-                />
-        </TouchableOpacity>
+            <TouchableOpacity onPress={props.onPress}>
+                <FontAwesome5Icon
+                    name="chevron-left"
+                    size={props.size || 32}
+                    color="#987bf3"
+                    />
+            </TouchableOpacity>
         </View>
-        // </Pressable>
     )
 }
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ImageBackground, Modal, StyleSheet, ScrollView, View, Platform } from "react-native";
-import CloseIcon from "../components/CloseIcon";
+import BackIcon from "../components/BackIcon";
 import PlayIcon from "../components/PlayIcon";
 import ListItemDetail from "../components/ListItemDetail";
 import Title from "../components/Title";
@@ -28,7 +28,7 @@ export default function LiveChannelDetailView({ navigation, route,  }: Props) {
     return (
         <View style={styles.modalView}>
             <View style={styles.channelListItemDetailContainer}>
-                <CloseIcon style={styles.closeIcon} onPress={() => RootNavitaion.goBack()} />
+                <BackIcon style={styles.BackIcon} onPress={() => RootNavitaion.goBack()} />
                 <ScrollView style={{ width: "100%" }} bounces={false}>
                     <ImageBackground source={{ uri: route.params.imageSrc }} resizeMode="cover" style={styles.imageBackground}>
                         <PlayIcon style={{ zIndex: 999 }} onPress={() => OpenPlayer(route.params.cid)} />
@@ -90,9 +90,9 @@ const styles = StyleSheet.create({
         zIndex: 100,
         backgroundColor: "black"
     },
-    closeIcon: {
+    BackIcon: {
         position: 'absolute',
-        right: 8,
+        left: 8,
         top: 8,
         zIndex: 999,
         backgroundColor: "#00000080",
