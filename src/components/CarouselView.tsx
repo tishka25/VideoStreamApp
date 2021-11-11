@@ -16,6 +16,7 @@ import Carousel from "react-native-anchor-carousel";
 import { SERVER_URL } from "@env";
 import DescriptionBox from "./DescriptionBox";
 import CarouselItem from "./CarouselItem";
+import Title from "./Title";
 
 
 export interface ICarouselViewItem {
@@ -111,7 +112,7 @@ export default function CarouselView(props: Props) {
                     blurRadius={10}
                 >
                     {props.header}
-                    <Text style={styles.header}>{props.name}</Text>
+                    <Title name={props.name}/>
 
                     <View style={styles.carouselContainerView}>
                         <Carousel
@@ -142,13 +143,6 @@ export default function CarouselView(props: Props) {
 }
 
 const styles = StyleSheet.create({
-    header: {
-        color: "white",
-        fontSize: 24,
-        fontWeight: "bold",
-        marginLeft: 10,
-        marginVertical: 10,
-    },
     carouselContentContainer: {
         // flex: 1,
         backgroundColor: "#000",
