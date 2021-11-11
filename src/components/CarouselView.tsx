@@ -80,7 +80,7 @@ export default function CarouselView(props: Props) {
         console.log(viewableItems);
         const len = viewableItems.length;
         // Select middle one
-        const middleItem = viewableItems[len - 2];
+        const middleItem = viewableItems[len - 2] || viewableItems[0];
         if(middleItem)
             setSelectedMovie(middleItem.item);
     })
