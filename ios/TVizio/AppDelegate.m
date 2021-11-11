@@ -46,6 +46,7 @@ static void InitializeFlipper(UIApplication *application) {
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [HomeIndicatorViewController new];
   rootViewController.view = rootView;
+  [UIView setAnimationsEnabled:NO];
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
