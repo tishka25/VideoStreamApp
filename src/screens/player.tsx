@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   BackIcon: {
     position: 'absolute',
     left: 32,
-    top: 64,
+    top: 8,
     zIndex: 999,
     backgroundColor: "#00000080",
     borderRadius: 64
