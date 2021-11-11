@@ -26,13 +26,20 @@ export default function Recordings(props: Props) {
         loadData();
     }, []);
 
+    function OpenRecordingPage(cid: string | number){
+        RootNavigation.navigate("RecordingsForChannel", { cid })
+    }
+
 
     function renderChannels(){
         return(
             recordedChannels.map(channel=>{
                 return (
                     <View style={styles.listItem}>
-                        <RecordingListItemChannelLogo imageSrc={`${BASE_URL}${channel.logo}`}/>
+                        <RecordingListItemChannelLogo 
+                            imageSrc={`${BASE_URL}${channel.logo}`}
+                            onPress={()=> OpenRecordingPage(channel.cid)}
+                        />
                     </View>
                 );
             })
