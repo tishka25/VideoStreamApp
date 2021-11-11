@@ -29,7 +29,7 @@ export default function Title(props: Props) {
 
 const styles = StyleSheet.create({
     header: {
-        fontSize: normalize(24),
+        fontSize: normalize(20),
         fontWeight: "bold",
         marginLeft: 10,
         marginVertical: 10,
