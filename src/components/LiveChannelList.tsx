@@ -13,6 +13,7 @@ import Title from "./Title";
 
 interface Props {
     onLoaded?: ()=>void;
+    refresh?:boolean;
 }
 
 export default function LiveChannelList(props: Props) {
@@ -31,6 +32,13 @@ export default function LiveChannelList(props: Props) {
             props.onLoaded();
         }
     }, [loading]);
+
+    useEffect(()=>{
+        if(props.refresh){
+            setLoading(true);
+            loadData();
+        }
+    },[props.refresh]);
     
 
     async function loadData(){
