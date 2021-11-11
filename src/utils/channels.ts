@@ -18,6 +18,30 @@ export interface RecordingItem extends IRecordingItem {
     date: string;
 }
 
+export interface LiveChannelItem {
+    background: string;
+    chName: string;
+    cid: string | number;
+    description?: string;
+    diration: number;
+    dvr: number;
+    elapsed: number;
+    h: string;
+    hp: boolean
+    is_free: number | boolean;
+    logo: string;
+    name: string;
+    next_name: string;
+    next_title?: string;
+    percent: number;
+    rec: "1" | "0"
+    start: string;
+    start_next: string;
+    svg: string;
+    title?: string;
+    w: string;
+}
+
 class Channels {
     constructor(){
 
@@ -48,6 +72,25 @@ class Channels {
             return this.flattenRecordingList(cid, recordings, days);
         } catch (error) {
             console.log("Could not get recordings:", error);
+            return [];
+        }
+    }
+
+    async getChannels(): Promise<LiveChannelItem[]>{
+        try {
+            const channels = await network.getChannels();
+            return channels;
+        } catch (error) {
+            console.log("Could not get channels", error);
+            return [];
+        }
+    }
+
+    async getRecordedChannels(): Promise<LiveChannelItem[]> {
+        try {
+            const channels = await this.getChannels();
+            return channels.filter((channel) => channel.rec === '1');
+        } catch (error) {
             return [];
         }
     }
