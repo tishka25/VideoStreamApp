@@ -14,7 +14,7 @@ import { navigationRef } from './src/rootNavigation';
 import Login from './src/screens/login';
 import Launcher from './src/screens/launcher';
 import LiveChannelDetailView from './src/screens/LiveChannelDetailView';
-import RecordingsForChannel from './src/screens/RecordingsForChannel';
+import RecordingsForChannel, { defaultScreenOptions } from './src/screens/RecordingsForChannel';
 import Recordings from './src/screens/Recordings';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -66,11 +66,7 @@ function Screens(props: any) {
       />
       <Stack.Screen
         name="RecordingsForChannel"
-        options={{
-          gestureEnabled: true,
-          cardStyleInterpolator: Platform.OS === 'ios' ? 
-          CardStyleInterpolators.forHorizontalIOS  : CardStyleInterpolators.forFadeFromCenter,
-        }}
+        options={defaultScreenOptions}
         component={RecordingsForChannel}
       />
     </Stack.Navigator>

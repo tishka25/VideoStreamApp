@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, RefreshControl, Platform } from "react-native";
 import ListItemDetail from "../components/ListItemDetail";
 import Title from "../components/Title";
 import * as RootNavitaion from "../rootNavigation";
@@ -12,7 +12,23 @@ import LoadingIndicator from "../components/LoadingIndicator";
 import { getPrettyDateString, getScreenshotUrl } from "../utils/utils";
 import { normalize } from "../utils/normalize";
 import { BASE_URL, tvizioLogo } from "../utils/constants";
+import { CardStyleInterpolators } from "@react-navigation/stack";
 
+export const defaultScreenOptions = {
+    gestureEnabled: true,
+    headerShown: true,
+    headerShadowVisible: false,
+    headerTitleStyle: {
+      color: "white"
+    },
+    headerTintColor: 'white',
+    headerStyle: {
+        backgroundColor: "black",
+    },
+    headerBackTitleVisible: false,
+    cardStyleInterpolator: Platform.OS === 'ios' ? 
+    CardStyleInterpolators.forHorizontalIOS  : CardStyleInterpolators.forFadeFromCenter,
+  }
 
 type Props = NativeStackScreenProps<RootStackParamList, 'RecordingsForChannel'>;
 export default function RecordingsForChannel(props: Props) {
@@ -20,10 +36,17 @@ export default function RecordingsForChannel(props: Props) {
     const [recordings, setRecordings] = useState<RecordingItem[]>([]);
     const [channelInfo, setChannelInfo] = useState<any>();
     const [loading, setLoading] = useState(true);
+    const [refreshing, setRefreshing] = React.useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        loadData();
+      }, []);
 
     useEffect(()=>{
-        if(channelInfo && recordings.length > 0)
+        if(channelInfo && recordings.length > 0){
             setLoading(false);
+            setRefreshing(false);
+        }
     }, [channelInfo, recordings])
 
     async function loadData(){
@@ -46,6 +69,12 @@ export default function RecordingsForChannel(props: Props) {
     function renderRecordings(){
         return (
             <FlatList
+                refreshControl={
+                    <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                    />
+                }
                 data={recordings}
                 renderItem={({item ,index})=>{
                     return (
@@ -66,13 +95,16 @@ export default function RecordingsForChannel(props: Props) {
     }
 
     function renderHeader(){
+        //Update title
         const title = channelInfo.chName ? `Записи за ${channelInfo.chName}` : "";
+        props.navigation.setOptions({ title })
+        //
         const channelLogo = channelInfo.logo ? { uri: `${BASE_URL}${channelInfo.logo}`} : tvizioLogo;
         return (
             <View>
-                <SafeAreaView/>
+                {/* <SafeAreaView/> */}
                 <Image source={channelLogo} resizeMode="contain" style={styles.channelListItemLogo} />
-                <Title name={title}/>
+                {/* <Title name={title}/> */}
                 <View style={styles.channelListItemSeparator} ></View>
             </View>
         );
@@ -97,5 +129,5 @@ export default function RecordingsForChannel(props: Props) {
 
 const styles = StyleSheet.create({
     channelListItemSeparator: { height: 2, width: "100%", backgroundColor: "#7A00EE", opacity: 0.8 },
-    channelListItemLogo: { width: undefined, height: 80, aspectRatio: 1, marginTop: 48, marginHorizontal: 8},
+    channelListItemLogo: { width: undefined, height: 80, aspectRatio: 1, marginHorizontal: 8, marginVertical: 16},
 });
