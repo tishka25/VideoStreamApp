@@ -75,11 +75,11 @@ export default function CarouselView(props: Props) {
     const { width, height } = Dimensions.get("window");
 
     const onViewRef = React.useRef((response: any)=> {
-        console.log(response)
         // Use viewable items in state or as intended
-        // Select middle one
         const viewableItems = response.viewableItems;
+        console.log(viewableItems);
         const len = viewableItems.length;
+        // Select middle one
         const middleItem = viewableItems[len - 2];
         if(middleItem)
             setSelectedMovie(middleItem.item);
@@ -124,8 +124,10 @@ export default function CarouselView(props: Props) {
                             separatorWidth={16}
                             ref={carouselRef}
                             inActiveOpacity={0.4}
-                            // keyExtractor={(_: any, index: any) => console.log(index.toString())}
-                            // onViewableItemsChanged={onViewRef.current}
+                            onViewableItemsChanged={onViewRef.current}
+                            viewabilityConfig={{
+                                itemVisiblePercentThreshold: 50
+                            }}
                         />
                     </View>
 
