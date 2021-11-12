@@ -30,6 +30,7 @@ function Screens(props: any) {
       screenOptions={{
         headerShown: false,
         gestureEnabled: false,
+        gestureDirection: "horizontal",
         presentation: "modal",
         cardStyle: {
           opacity: 1,
