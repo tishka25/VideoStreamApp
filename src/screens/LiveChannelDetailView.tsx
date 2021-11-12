@@ -10,7 +10,25 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CloseIcon from "../components/CloseIcon";
+import { CardStyleInterpolators, HeaderStyleInterpolators } from "@react-navigation/stack";
 
+export const defaultLiveChannelDetailScreenOptions = {
+    headerShown: true,
+    gestureEnabled: true,
+    gestureDirection: "vertical",
+    presentation: "transparentModal",
+    cardStyle: { backgroundColor: 'transparent' },
+    headerStyle: {
+      backgroundColor: "transparent",
+    },
+    headerBackTitleVisible: false,
+    headerBackImage: (props: any)=><CloseIcon {...props} style={{ marginHorizontal: 16 }}/>,
+    headerTintColor: "#7A00EE",
+    title: "",
+    cardStyleInterpolator: Platform.OS === 'ios' ? 
+    CardStyleInterpolators.forVerticalIOS  : CardStyleInterpolators.forBottomSheetAndroid,
+    headerStyleInterpolator: HeaderStyleInterpolators.forFade,
+  }
 
 type Props = NativeStackScreenProps<RootStackParamList, 'LiveChannelDetailView'>;
 export default function LiveChannelDetailView({ navigation, route,  }: Props) {

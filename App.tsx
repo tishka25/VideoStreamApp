@@ -13,7 +13,7 @@ import { RootStackParamList, RootTabParamList } from './src/types';
 import { navigationRef } from './src/rootNavigation';
 import Login from './src/screens/login';
 import Launcher from './src/screens/launcher';
-import LiveChannelDetailView from './src/screens/LiveChannelDetailView';
+import LiveChannelDetailView, { defaultLiveChannelDetailScreenOptions } from './src/screens/LiveChannelDetailView';
 import RecordingsForChannel, { defaultScreenOptions } from './src/screens/RecordingsForChannel';
 import Recordings from './src/screens/Recordings';
 import CloseIcon from './src/components/CloseIcon';
@@ -66,29 +66,12 @@ function Screens(props: any) {
       />
       <Stack.Screen
         name="LiveChannelDetailView"
-        options={{
-          headerShown: true,
-          gestureEnabled: true,
-          gestureDirection: "vertical",
-          presentation: "transparentModal",
-          cardStyle: { backgroundColor: 'transparent' },
-          headerStyle: {
-            backgroundColor: "transparent",
-          },
-          headerBackTitleVisible: false,
-          headerBackImage: (props)=><CloseIcon {...props} style={{ marginHorizontal: 16 }}/>,
-          headerTintColor: "#7A00EE",
-          title: "",
-          cardStyleInterpolator: Platform.OS === 'ios' ? 
-          CardStyleInterpolators.forVerticalIOS  : CardStyleInterpolators.forBottomSheetAndroid,
-          headerStyleInterpolator: HeaderStyleInterpolators.forFade,
-          // headerMode: "screen"
-        }}
+        options={defaultLiveChannelDetailScreenOptions as any}
         component={LiveChannelDetailView}
       />
       <Stack.Screen
         name="RecordingsForChannel"
-        options={{...defaultScreenOptions}}
+        options={defaultScreenOptions as any}
         component={RecordingsForChannel}
       />
     </Stack.Navigator>
