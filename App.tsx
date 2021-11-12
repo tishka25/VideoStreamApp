@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import { LogBox, Platform, StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { DarkTheme, NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CardStyleInterpolators, createStackNavigator, HeaderStyleInterpolators, TransitionSpecs } from '@react-navigation/stack';
 import Orientation from 'react-native-orientation';
@@ -29,7 +29,12 @@ function Screens(props: any) {
       initialRouteName="Launcher"
       screenOptions={{
         headerShown: false,
-        gestureEnabled: false
+        gestureEnabled: false,
+        presentation: "modal",
+        cardStyle: {
+          opacity: 1,
+          backgroundColor: "black"
+        }
       }}
     >
       <Stack.Screen 
@@ -53,7 +58,8 @@ function Screens(props: any) {
       <Stack.Screen
         name="Player"
         options={{
-          cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
+
+          cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
         }}
         component={Player}
       />
@@ -61,7 +67,6 @@ function Screens(props: any) {
         name="LiveChannelDetailView"
         options={{
           headerShown: true,
-          // headerShadowVisible: false,
           gestureEnabled: true,
           gestureDirection: "vertical",
           presentation: "transparentModal",
@@ -70,7 +75,7 @@ function Screens(props: any) {
             backgroundColor: "transparent",
           },
           headerBackTitleVisible: false,
-          headerBackImage: CloseIcon,
+          headerBackImage: (props)=><CloseIcon {...props} style={{ marginHorizontal: 16 }}/>,
           headerTintColor: "#7A00EE",
           title: "",
           cardStyleInterpolator: Platform.OS === 'ios' ? 
@@ -95,6 +100,9 @@ function Tabs() {
   return (
     <Tab.Navigator
       initialRouteName="Main"
+      sceneContainerStyle={{
+        backgroundColor: "black",
+      }}
       screenOptions={{
           tabBarActiveTintColor: '#987bf3',
           tabBarInactiveTintColor: '#dedede',
@@ -142,18 +150,18 @@ export default function App() {
 
 
   return (
-    <NavigationContainer ref={navigationRef}>
-      {/* <Tabs></Tabs> */}
-      <Screens/>
-    </NavigationContainer>
+    <View style={styles.container}>
+      <NavigationContainer ref={navigationRef} theme={DarkTheme}>
+        {/* <Tabs></Tabs> */}
+        <Screens/>
+      </NavigationContainer>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: 'black',
   },
 });
