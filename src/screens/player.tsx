@@ -91,13 +91,13 @@ export default function Player({ navigation, route }: Props) {
   useFocusEffect(
     React.useCallback(() => {
       // Do something when the screen is focused
-      setFullScreen(true);
+      // setFullScreen(true);
       StatusBar.setHidden(true);
       // setTabBarVisible(false);
       return () => {
         // Do something when the screen is unfocused
         // Useful for cleanup functions
-        setFullScreen(false);
+        // setFullScreen(false);
       StatusBar.setHidden(false);
         // setTabBarVisible(true);
       };
@@ -105,7 +105,11 @@ export default function Player({ navigation, route }: Props) {
   );
 
   return (
-    <View style={styles.container} onLayout={() => setDimensions({ width: Dimensions.get("screen").width, height: Dimensions.get("screen").height })}>
+    <View 
+      style={styles.container} 
+      onLayout={() => setDimensions({ width: Dimensions.get("screen").width, height: Dimensions.get("screen").height })}
+      onTouchEnd={()=> setFullScreen(!fullscreen)}
+    >
       <HomeIndicator autoHidden/>
       {videoURL != undefined ? <Video
         source={{ uri: videoURL }}
@@ -114,7 +118,7 @@ export default function Player({ navigation, route }: Props) {
         style={styles.video}
         fullscreen={true}
         controls={false}
-        resizeMode={"contain"}
+        resizeMode={fullscreen ? "cover" : "contain"}
         /> :
         <LoadingIndicator />
       }
