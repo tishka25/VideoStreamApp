@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { RefreshControl, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { Platform, RefreshControl, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { FlatList, ScrollView, TextInput } from 'react-native-gesture-handler';
 //@ts-ignore
 import Orientation from 'react-native-orientation';
@@ -77,7 +77,7 @@ export default function Home(props: any) {
     function renderSearchBox(){
         return (
             <View>
-                <SafeAreaView />
+                <SafeAreaView style={{ marginTop: Platform.OS == 'android' ? 16 : 0 }}/>
                 <View style={styles.searchBoxContainer}>
                     <TextInput
                         placeholder="Search"
