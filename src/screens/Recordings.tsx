@@ -46,6 +46,14 @@ export default function Recordings(props: Props) {
         );
     }
 
+    function renderLoadingIndicator(){
+        return(
+            <View style={{ flex:1,justifyContent: "center"}}>
+                <LoadingIndicator />
+            </View>
+        )
+    }
+
     return (
         <View style={styles.container}>
             <SafeAreaView />
@@ -54,7 +62,7 @@ export default function Recordings(props: Props) {
                 style={styles.scrollContainer}
             >
                 <View style={styles.innerContainer}>
-                    {recordedChannels.length > 0 ? renderChannels() : <LoadingIndicator />}
+                    {recordedChannels.length > 0 ? renderChannels() : renderLoadingIndicator()}
                 </View>
             </ScrollView>
         </View>
