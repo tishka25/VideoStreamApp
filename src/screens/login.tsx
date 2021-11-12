@@ -13,7 +13,7 @@ import LoadingIndicator from '../components/LoadingIndicator';
 
 type Props = NativeStackScreenProps<RootStackParamList, "Login">
 export default function Login(props: Props){
-    const [loginCode, setLoginCode] = useState("336378125322");
+    const [loginCode, setLoginCode] = useState("336378125321");
     const [isLoading, setLoading] = useState(false);
     const [error,setError] = useState<string | undefined>(undefined);
     const onLogin = async ()=>{
