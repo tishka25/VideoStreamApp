@@ -7,25 +7,31 @@ import TvizioInput from '../components/TvizioInput';
 import { RootStackParamList } from '../types';
 import user from '../utils/user';
 import * as RootNavitaion from "../rootNavigation";
-
+import TvizioLogo from '../components/TvizioLogo';
+import LoadingIndicator from '../components/LoadingIndicator';
 
 
 type Props = NativeStackScreenProps<RootStackParamList, "Login">
 export default function Login(props: Props){
-    const [loginCode, setLoginCode] = useState("336378125321");
+    const [loginCode, setLoginCode] = useState("336378125322");
     const [isLoading, setLoading] = useState(false);
+    const [error,setError] = useState<string | undefined>(undefined);
     const onLogin = async ()=>{
         setLoading(true);
-        await user.signIn(loginCode);
+        const response = await user.signIn(loginCode);
         setLoading(false);
-        // Reset navigation from current point
-        RootNavitaion.reset('HomeTabs');
+        if(response){
+            // Reset navigation from current point
+            RootNavitaion.reset('HomeTabs');
+        }else{
+            setError("Невалиден код за достъп");
+        }
     }
 
     return(
-        <View style={styles.container}>
-            <Text>Login</Text>
             <View style={styles.loginInputContainer}>
+                <TvizioLogo style={styles.imageLogo}/>
+                <Text style={styles.errorText}>{error}</Text>
                 <TvizioInput 
                     title="Code"
                     customStyle={styles.loginElement}
@@ -39,8 +45,8 @@ export default function Login(props: Props){
                     onPress={onLogin}
                     customStyle={styles.loginElement}
                 />
+                {isLoading && <LoadingIndicator/>}
             </View>
-        </View>
     )
 }
 
@@ -49,20 +55,25 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: "space-between",
+        justifyContent: "center",
         backgroundColor: "black"
     },
     loginInputContainer:{
         height: "100%",
         width: "100%",
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
+        justifyContent: "flex-start",
+        alignItems: "center",
+        flexDirection: "column",
+        backgroundColor: "black"
     },
     loginElement:{
         margin: 8
     },
-    loginButton: {
-
+    imageLogo: {
+        marginTop: "20%"
+    },
+    errorText: {
+        color: "red",
     }
 });
