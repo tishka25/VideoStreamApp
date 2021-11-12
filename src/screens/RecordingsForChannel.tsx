@@ -18,6 +18,7 @@ export const defaultScreenOptions = {
     gestureEnabled: true,
     headerShown: true,
     headerShadowVisible: false,
+    title: "",
     headerTitleStyle: {
       color: "white"
     },
@@ -102,7 +103,7 @@ export default function RecordingsForChannel(props: Props) {
         const channelLogo = channelInfo.logo ? { uri: `${BASE_URL}${channelInfo.logo}`} : tvizioLogo;
         return (
             <View>
-                {/* <SafeAreaView/> */}
+                <SafeAreaView/>
                 <Image source={channelLogo} resizeMode="contain" style={styles.channelListItemLogo} />
                 {/* <Title name={title}/> */}
                 <View style={styles.channelListItemSeparator} ></View>
