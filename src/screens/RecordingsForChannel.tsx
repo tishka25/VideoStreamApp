@@ -13,6 +13,7 @@ import { getPrettyDateString, getScreenshotUrl } from "../utils/utils";
 import { normalize } from "../utils/normalize";
 import { BASE_URL, tvizioLogo } from "../utils/constants";
 import { CardStyleInterpolators } from "@react-navigation/stack";
+import RecordingList from "../components/RecordingsList";
 
 export const defaultScreenOptions = {
     gestureEnabled: true,
@@ -69,28 +70,12 @@ export default function RecordingsForChannel(props: Props) {
 
     function renderRecordings(){
         return (
-            <FlatList
-                refreshControl={
-                    <RefreshControl
-                    refreshing={refreshing}
-                    onRefresh={onRefresh}
-                    />
-                }
-                data={recordings}
-                renderItem={({item ,index})=>{
-                    return (
-                        <ListItemDetail
-                            title={item.name}
-                            subtitle={getPrettyDateString(item.date, true, false, item.time)}
-                            imageSrc={getScreenshotUrl(props.route.params.cid, item.bid)}
-                            height={80}
-                            titleFontSize={normalize(14)}
-                            subtitleFontSize={normalize(12)}
-                            onPress={()=> OpenPlayer(item.bid) }
-                            key={`${item.bid}-all-${index}`}
-                        />
-                    );
-                }}
+            <RecordingList
+                cid={props.route.params.cid}
+                onRefresh={onRefresh}
+                refreshing={refreshing}
+                recordings={recordings}
+                onPress={(bid)=> OpenPlayer(bid as string)}
             />
         )
     }
