@@ -35,7 +35,7 @@ export default function Login(props: Props){
                     onChangeText={setLoginCode}
                 />
                 <TvizioButton 
-                    title="Login" 
+                    name="Login" 
                     onPress={onLogin}
                     customStyle={styles.loginElement}
                 />

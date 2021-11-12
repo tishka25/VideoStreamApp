@@ -46,7 +46,7 @@ export default function LiveChannelDetailView({ navigation, route,  }: Props) {
                         <View>
                             <TvizioButton
                                 customStyle={{ alignSelf: "center", marginBottom: 32 }}
-                                title="Покажи всички"
+                                name="Покажи всички"
                                 onPress={ShowAllRecordings}
                             />
                             <SafeAreaView />

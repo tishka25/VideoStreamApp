@@ -6,7 +6,7 @@ import { normalize } from '../utils/normalize';
 
 interface Props {
     onPress?: ()=>void;
-    title: string;
+    name: string;
     customStyle?: StyleProp<ViewStyle>
 }
 
@@ -31,7 +31,7 @@ export default function TvizioButton(props: Props){
                 numberOfLines={1}
                 adjustsFontSizeToFit
             >
-                {props.title}
+                {props.name}
             </Text>
         </Pressable>
     );

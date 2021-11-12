@@ -86,7 +86,6 @@ export default new class User {
     }
 
     async signOut(){
-        await network.userSignOut();
         //Remove local storage
         await memory.clearAll();
         //

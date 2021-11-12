@@ -6,7 +6,6 @@ import { RootNavigationParam, RootNavigationScreen, RootStackParamList } from '.
 export const navigationRef = createNavigationContainerRef<RootNavigationParam>()
 
 export function navigate(name: RootNavigationScreen, params?: any) {
-// export function navigate(args: any) {
   if (navigationRef.isReady()) {
     navigationRef.navigate<RootNavigationScreen>(name, params);
   }
