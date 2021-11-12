@@ -103,7 +103,6 @@ export default function RecordingsForChannel(props: Props) {
         const channelLogo = channelInfo.logo ? { uri: `${BASE_URL}${channelInfo.logo}`} : tvizioLogo;
         return (
             <View>
-                <SafeAreaView/>
                 <Image source={channelLogo} resizeMode="contain" style={styles.channelListItemLogo} />
                 {/* <Title name={title}/> */}
                 <View style={styles.channelListItemSeparator} ></View>
@@ -113,7 +112,7 @@ export default function RecordingsForChannel(props: Props) {
 
     function renderPage(){
         return (
-            <View>
+            <View style={{ flex: 1 }}>
                 {renderHeader()}
                 {renderRecordings()}
             </View>
@@ -122,7 +121,6 @@ export default function RecordingsForChannel(props: Props) {
 
     return (
         <View style={{ backgroundColor: "black" ,flex: 1, justifyContent: "center"}}>
-            <SafeAreaView/>
             {loading ? <LoadingIndicator/> : renderPage()}
         </View>
     );
