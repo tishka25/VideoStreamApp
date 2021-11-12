@@ -37,7 +37,7 @@ export default new class Network{
         });
     }
 
-    private _postData(url:string, data = {}, content_type?: string){
+    private _postData(url:string, data = {}, content_type?: string): Promise<any>{
         return new Promise((resolve, reject)=>{
             console.log("Opening:", url, data);
             var xhr = new XMLHttpRequest();

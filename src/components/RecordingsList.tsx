@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { FlatList, Pressable, RefreshControl, StyleProp, StyleSheet, View, ViewStyle } from "react-native"
-import channels, { RecordingItem } from "../utils/channels";
+import React from "react";
+import { FlatList, RefreshControl, StyleSheet } from "react-native"
+import { RecordingItem } from "../utils/channels";
 import { normalize } from "../utils/normalize";
 import { getPrettyDateString, getScreenshotUrl } from "../utils/utils";
 import ListItemDetail from "./ListItemDetail";
 
 interface Props {
-    cid: string | number;
     recordings: RecordingItem[];
     onPress?: (bid: string | number)=>void;
     onRefresh?: ()=>void;
     refreshing?: boolean;
 }
 
-export default function RecordingList(props: Props) {
+export default function RecordingsList(props: Props) {
 
     function handlePress(bid: string | number){
         if(props.onPress)
@@ -34,7 +33,7 @@ export default function RecordingList(props: Props) {
                 <ListItemDetail
                     title={item.name}
                     subtitle={getPrettyDateString(item.date, true, false, item.time)}
-                    imageSrc={getScreenshotUrl(props.cid, item.bid)}
+                    imageSrc={getScreenshotUrl(item.cid, item.bid)}
                     height={80}
                     titleFontSize={normalize(14)}
                     subtitleFontSize={normalize(12)}

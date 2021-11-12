@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Platform, RefreshControl, StatusBar, StyleSheet, Text, View } from 'react-native';
-import { FlatList, ScrollView, TextInput } from 'react-native-gesture-handler';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 //@ts-ignore
 import Orientation from 'react-native-orientation';
 import CarouselView, { ICarouselViewItem } from '../components/CarouselView';
-import user from '../utils/user';
 import network from '../utils/network';
 import LoadingIndicator from '../components/LoadingIndicator';
-import { getPrettyDateString, getScreenshotUrl } from '../utils/utils';
+import { getPrettyDateString, getScreenshotUrl, throttle } from '../utils/utils';
 import LiveChannelList from '../components/LiveChannelList';
-import constants, { BASE_URL } from '../utils/constants';
-import { ILiveChannelListItem } from '../components/LiveChannelListItem';
 import * as RootNavitaion from "../rootNavigation";
-import { color } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Header } from '@react-navigation/stack';
 import { normalize } from '../utils/normalize';
+import SearchView from '../components/SearchView';
 
 
 export default function Home(props: any) {
@@ -24,7 +20,7 @@ export default function Home(props: any) {
     const [loading, setLoading] = useState(true);
 
     const [historyList, setHistoryList] = useState<ICarouselViewItem[]>([]);
-    const [isSearching, setIsSearching] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
 
     const [refreshing, setRefreshing] = React.useState(false);
     const onRefresh = React.useCallback(() => {
@@ -67,11 +63,16 @@ export default function Home(props: any) {
     }
 
     function handleSearchQuery(e: string){
-        if(e.length > 3){
-            setIsSearching(true);
-        }else{
-            setIsSearching(false);
-        }
+        throttle(()=>setSearchQuery(e), 1000);
+        // if(e.length > 3){
+        //     setIsSearching(true);
+        // }else{
+        //     setIsSearching(false);
+        // }
+    }
+
+    function getIsSearching(){
+        return searchQuery.length >= 3;
     }
 
     function renderSearchBox(){
@@ -100,22 +101,21 @@ export default function Home(props: any) {
                         items={historyList}
                         onSelect={OpenPlayer}
                         header={renderSearchBox()}
-                        hidden={isSearching}
+                        hidden={getIsSearching()}
                     />}
-                    {!isSearching && <LiveChannelList refresh={refreshing}/>}
+                    {!getIsSearching() && <LiveChannelList refresh={refreshing}/>}
                 </View>
         )
     }
 
     function renderSearchView(){
         return (
-            <View>
-                <Text style={{color: "white"}}>Search view</Text>
-            </View>
+            <SearchView searchQuery={searchQuery}/>
         )
     }
 
     return (
+        <View>
         <ScrollView 
             style={{ backgroundColor: "black" }}
             refreshControl={
@@ -126,18 +126,7 @@ export default function Home(props: any) {
             }
         >
             <StatusBar barStyle="light-content"/>
-            {/* <SafeAreaView style={{ backgroundColor: "black" , flex: 1}}>
-            </SafeAreaView> */}
-            {/* <View style={styles.searchBoxContainer}>
-                <TextInput
-                    placeholder="Search"
-                    placeholderTextColor="#666"
-                    style={styles.searchBox}
-                />
-            </View> */}
             {renderMainView()}
-            {isSearching && renderSearchView()}
-
             {/* Continue to watch section */}
             {/* <View style={{ marginHorizontal: 14 }}>
                 <Text style={{ color: "white", fontSize: 24, fontWeight: "bold", marginBottom: 24, marginTop: 24 }}>Continue Watching</Text>
@@ -178,8 +167,8 @@ export default function Home(props: any) {
             </View> */}
 
         </ScrollView>
-        // }
-        // </View>
+        {getIsSearching() && renderSearchView()}
+        </View>
     );
 }
 

@@ -16,6 +16,7 @@ interface IRecordingList {
 
 export interface RecordingItem extends IRecordingItem {
     date: string;
+    cid: string | number;
 }
 
 export interface LiveChannelItem {
@@ -58,6 +59,7 @@ class Channels {
             for(var dateItem of dateItems[date]){
                 recordings.push({
                     date,
+                    cid,
                     ...dateItem
                 });
             }
@@ -105,6 +107,15 @@ class Channels {
         } catch (error) {
             console.log("Could not get channel info:", error);
             return null;
+        }
+    }
+
+    async searchArchive(query: string, fastSearch: boolean = false): Promise<RecordingItem[]>{
+        try {
+            const response = await network.searchArchive(query, fastSearch);
+            return response;
+        } catch (error) {
+            return [];
         }
     }
 }

@@ -71,7 +71,6 @@ export default function RecordingsForChannel(props: Props) {
     function renderRecordings(){
         return (
             <RecordingList
-                cid={props.route.params.cid}
                 onRefresh={onRefresh}
                 refreshing={refreshing}
                 recordings={recordings}
