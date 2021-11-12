@@ -51,8 +51,8 @@ export function LiveChannelListItem(props: ILiveChannelListItem & { onPress?: ()
 }
 
 const styles = StyleSheet.create({
-    channelListItemBackground: { width: 214, height: 120},
-    channelListItemLogo: {width: undefined, height: 100, aspectRatio: 1},
+    channelListItemBackground: { width: 180, height: 80},
+    channelListItemLogo: {width: undefined, height: 60, aspectRatio: 1},
     channelListItemSeparator: { position: "absolute", height: 2, width: "100%", backgroundColor: "#7A00EE", opacity: 0.8 },
     channelListItemTouchableContainer: {
         width: "100%",
