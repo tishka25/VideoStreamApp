@@ -118,6 +118,8 @@ export default function Player({ navigation, route }: Props) {
         style={styles.video}
         fullscreen={true}
         controls={false}
+        muted={false}
+        ignoreSilentSwitch={"ignore"}
         resizeMode={fullscreen ? "cover" : "contain"}
         /> :
         <LoadingIndicator />
