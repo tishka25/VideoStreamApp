@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { ImageBackground, Modal, StyleSheet, ScrollView, View, Platform } from "react-native";
-import BackIcon from "../components/BackIcon";
 import PlayIcon from "../components/PlayIcon";
 import ListItemDetail from "../components/ListItemDetail";
 import Title from "../components/Title";
@@ -10,6 +9,7 @@ import * as RootNavitaion from "../rootNavigation";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types";
 import { SafeAreaView } from "react-native-safe-area-context";
+import CloseIcon from "../components/CloseIcon";
 
 
 type Props = NativeStackScreenProps<RootStackParamList, 'LiveChannelDetailView'>;
@@ -28,7 +28,7 @@ export default function LiveChannelDetailView({ navigation, route,  }: Props) {
     return (
         <View style={styles.modalView}>
             <View style={styles.channelListItemDetailContainer}>
-                <BackIcon style={styles.BackIcon} onPress={() => RootNavitaion.goBack()} />
+                <CloseIcon style={styles.closeIcon} onPress={() => RootNavitaion.goBack()} />
                 <ScrollView style={{ width: "100%" }} bounces={false}>
                     <ImageBackground source={{ uri: route.params.imageSrc }} resizeMode="cover" style={styles.imageBackground}>
                         <PlayIcon style={{ zIndex: 999 }} onPress={() => OpenPlayer(route.params.cid)} />
@@ -90,13 +90,11 @@ const styles = StyleSheet.create({
         zIndex: 100,
         backgroundColor: "black"
     },
-    BackIcon: {
+    closeIcon: {
         position: 'absolute',
         left: 8,
         top: 8,
-        zIndex: 999,
-        backgroundColor: "#00000080",
-        borderRadius: 64
+        zIndex: 999
     },
     imageBackground: {
         width: "100%",

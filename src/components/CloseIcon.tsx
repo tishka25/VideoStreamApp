@@ -9,12 +9,12 @@ interface Props {
     size?: number;
 }
 
-export default function BackIcon(props: Props) {
+export default function CloseIcon(props: Props) {
     return (
         <View style={[styles.icon,props.style]}>
             <TouchableOpacity onPress={props.onPress}>
                 <FontAwesome5Icon
-                    name="chevron-left"
+                    name="times"
                     size={props.size || 32}
                     color="#987bf3"
                     />
@@ -25,9 +25,9 @@ export default function BackIcon(props: Props) {
 
 const styles = StyleSheet.create({
     icon: {
-        backgroundColor: "#00000080",
-        borderRadius: 32,
-        width: 32,
-        height: 32
+        // backgroundColor: "#00000080",
+        // borderRadius: 32,
+        // width: 32,
+        // height: 32
     }
 })
