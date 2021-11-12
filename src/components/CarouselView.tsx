@@ -30,11 +30,13 @@ export interface ICarouselViewItem {
 interface Props {
     name: string
     items: ICarouselViewItem[]
-    onSelect?:(id: string) => void;
+    onSelect?: (id: string) => void;
     header?: React.ReactElement;
+    hidden?: boolean;
 }
 
 export default function CarouselView(props: Props) {
+    const defaultMinHeight = 500;
 
     const [gallery, setgallery] = useState([
         {
@@ -75,13 +77,13 @@ export default function CarouselView(props: Props) {
     const carouselRef = useRef(null);
     const { width, height } = Dimensions.get("window");
 
-    const onViewRef = React.useRef((response: any)=> {
+    const onViewRef = React.useRef((response: any) => {
         // Use viewable items in state or as intended
         const viewableItems = response.viewableItems;
         const len = viewableItems.length;
         // Select middle one
         const middleItem = viewableItems[len - 2] || viewableItems[0];
-        if(middleItem)
+        if (middleItem)
             setSelectedMovie(middleItem.item);
     })
 
@@ -89,8 +91,8 @@ export default function CarouselView(props: Props) {
     const renderItem = ({ item, index }) => {
         return (
             <CarouselItem
-                onPress={()=>{
-                    if(carouselRef != null){
+                onPress={() => {
+                    if (carouselRef != null) {
                         //@ts-ignore
                         carouselRef.current.scrollToIndex(index);
                     }
@@ -101,41 +103,49 @@ export default function CarouselView(props: Props) {
         );
     };
 
+    function renderMainView() {
+        return (
+            <View>
+                <Title name={props.name} />
+                <View style={styles.carouselContainerView}>
+                    <Carousel
+                        style={styles.carousel}
+                        data={props.items}
+                        renderItem={renderItem}
+                        itemWidth={200}
+                        containerWidth={width - 20}
+                        separatorWidth={16}
+                        ref={carouselRef}
+                        inActiveOpacity={0.4}
+                        onViewableItemsChanged={onViewRef.current}
+                        viewabilityConfig={{
+                            itemVisiblePercentThreshold: 50
+                        }}
+                    />
+                </View>
+                <DescriptionBox
+                    {...selectedMovie}
+                    onSelect={props.onSelect}
+                />
+            </View>
+        );
+    }
+
+
     return (
-        <View style={styles.carouselContentContainer}>
+        <View style={[styles.carouselContentContainer, { minHeight: props.hidden ? undefined : defaultMinHeight }]}>
             <View
-                style={{ backgroundColor: "#000", width: "100%"}}
+                style={{ backgroundColor: "#000", width: "100%" }}
             >
                 <ImageBackground
                     source={{ uri: selectedMovie.imageSrc }}
-                    style={styles.imageBackground}
+                    style={[styles.imageBackground]}
                     blurRadius={10}
+                    imageStyle={{ opacity: props.hidden ? 0 : 1 }}
                 >
                     {props.header}
-                    <Title name={props.name}/>
+                    {!props.hidden && renderMainView()}
 
-                    <View style={styles.carouselContainerView}>
-                        <Carousel
-                            style={styles.carousel}
-                            data={props.items}
-                            renderItem={renderItem}
-                            itemWidth={200}
-                            containerWidth={width - 20}
-                            separatorWidth={16}
-                            ref={carouselRef}
-                            inActiveOpacity={0.4}
-                            onViewableItemsChanged={onViewRef.current}
-                            viewabilityConfig={{
-                                itemVisiblePercentThreshold: 50
-                            }}
-                        />
-                    </View>
-
-                    <DescriptionBox
-                        {...selectedMovie}
-                        onSelect={props.onSelect}
-                    />
-                   
                 </ImageBackground>
             </View>
         </View>
@@ -147,7 +157,6 @@ const styles = StyleSheet.create({
         // flex: 1,
         backgroundColor: "#000",
         width: "100%",
-        minHeight: 500,
         // paddingHorizontal: 14,
         flexDirection: "row",
     },

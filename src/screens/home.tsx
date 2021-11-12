@@ -100,8 +100,9 @@ export default function Home(props: any) {
                         items={historyList}
                         onSelect={OpenPlayer}
                         header={renderSearchBox()}
+                        hidden={isSearching}
                     />}
-                    <LiveChannelList refresh={refreshing}/>
+                    {!isSearching && <LiveChannelList refresh={refreshing}/>}
                 </View>
         )
     }
@@ -109,7 +110,6 @@ export default function Home(props: any) {
     function renderSearchView(){
         return (
             <View>
-                {renderSearchBox()}
                 <Text style={{color: "white"}}>Search view</Text>
             </View>
         )
@@ -135,7 +135,8 @@ export default function Home(props: any) {
                     style={styles.searchBox}
                 />
             </View> */}
-            { isSearching ? renderSearchView() :  renderMainView()}
+            {renderMainView()}
+            {isSearching && renderSearchView()}
 
             {/* Continue to watch section */}
             {/* <View style={{ marginHorizontal: 14 }}>
