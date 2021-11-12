@@ -66,7 +66,7 @@ function Screens(props: any) {
       />
       <Stack.Screen
         name="RecordingsForChannel"
-        options={defaultScreenOptions}
+        options={{...defaultScreenOptions}}
         component={RecordingsForChannel}
       />
     </Stack.Navigator>

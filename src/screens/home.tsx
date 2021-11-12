@@ -21,8 +21,6 @@ import { normalize } from '../utils/normalize';
 export default function Home(props: any) {
     Orientation.lockToPortrait();
 
-    const [userInfo] = useState(user.get());
-
     const [loading, setLoading] = useState(true);
 
     const [historyList, setHistoryList] = useState<ICarouselViewItem[]>([]);
@@ -68,6 +66,14 @@ export default function Home(props: any) {
         RootNavitaion.navigate("Player", { isLive: false, id })
     }
 
+    function handleSearchQuery(e: string){
+        if(e.length > 3){
+            setIsSearching(true);
+        }else{
+            setIsSearching(false);
+        }
+    }
+
     function renderSearchBox(){
         return (
             <View>
@@ -78,6 +84,7 @@ export default function Home(props: any) {
                         placeholderTextColor="#666"
                         style={styles.searchBox}
                         numberOfLines={1}
+                        onChangeText={handleSearchQuery}
                     />
                 </View>
             </View>
@@ -101,7 +108,10 @@ export default function Home(props: any) {
 
     function renderSearchView(){
         return (
-            <Text style={{color: "white"}}>Search view</Text>
+            <View>
+                {renderSearchBox()}
+                <Text style={{color: "white"}}>Search view</Text>
+            </View>
         )
     }
 
@@ -125,7 +135,7 @@ export default function Home(props: any) {
                     style={styles.searchBox}
                 />
             </View> */}
-            {renderMainView()}
+            { isSearching ? renderSearchView() :  renderMainView()}
 
             {/* Continue to watch section */}
             {/* <View style={{ marginHorizontal: 14 }}>
