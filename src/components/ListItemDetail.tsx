@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, Pressable, StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { tvizioLogo } from "../utils/constants";
 import { normalize } from "../utils/normalize";
 
 interface Props {
@@ -17,12 +18,24 @@ export default function ListItemDetail(props: Props) {
     const defaultHeight = 120;
     const defaultTitleFontSize = normalize(15);
     const defaultSubtitleFontSize = normalize(14);
+
+    const [localImageSource, setImageSource] = useState({ uri: props.imageSrc });
+
+    function handleImageError(){
+        setImageSource(tvizioLogo);
+    }
+
     return (
         <Pressable onPress={props.onPress}>
         <View style={[styles.container, { height: props.height || defaultHeight }]}>
                 <View style={styles.col}>
                     <View style={[styles.row, { alignItems: "center" }]}>
-                        <Image source={{ uri: props.imageSrc }} resizeMode="contain" style={styles.channelListItemLogo} />
+                        <Image 
+                            source={localImageSource} 
+                            resizeMode="contain" 
+                            style={styles.channelListItemLogo}
+                            onError={handleImageError}
+                        />
                         <View style={[styles.col, { justifyContent: "space-between", marginLeft: 8 }]}>
                             <Text style={[styles.title, { fontSize: props.titleFontSize || defaultTitleFontSize }]}>{props.title}</Text>
                             <Text style={[styles.subtitle, { fontSize: props.subtitleFontSize || defaultSubtitleFontSize }]}>{props.subtitle}</Text>
