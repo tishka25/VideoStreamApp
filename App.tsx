@@ -31,6 +31,7 @@ function Screens(props: any) {
         headerShown: false,
         gestureEnabled: false,
         gestureDirection: "horizontal",
+        gestureResponseDistance: 200,
         presentation: "modal",
         cardStyle: {
           opacity: 1,
