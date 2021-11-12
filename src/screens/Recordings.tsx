@@ -35,7 +35,7 @@ export default function Recordings(props: Props) {
         return(
             recordedChannels.map(channel=>{
                 return (
-                    <View style={styles.listItem}>
+                    <View style={styles.listItem} key={channel.cid}>
                         <RecordingListItemChannelLogo 
                             imageSrc={`${BASE_URL}${channel.logo}`}
                             onPress={()=> OpenRecordingPage(channel.cid)}
