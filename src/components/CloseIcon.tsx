@@ -7,6 +7,7 @@ interface Props {
     style?: ViewStyle;
     onPress?: ()=>void;
     size?: number;
+    tintColor?: string;
 }
 
 export default function CloseIcon(props: Props) {
@@ -16,7 +17,7 @@ export default function CloseIcon(props: Props) {
                 <FontAwesome5Icon
                     name="times"
                     size={props.size || 32}
-                    color="#987bf3"
+                    color={props.tintColor || "#987bf3"}
                     />
             </TouchableOpacity>
         </View>

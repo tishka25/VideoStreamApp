@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { LogBox, Platform, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { CardStyleInterpolators, createStackNavigator, TransitionSpecs } from '@react-navigation/stack';
+import { CardStyleInterpolators, createStackNavigator, HeaderStyleInterpolators, TransitionSpecs } from '@react-navigation/stack';
 import Orientation from 'react-native-orientation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from './src/screens/home';
@@ -16,6 +16,7 @@ import Launcher from './src/screens/launcher';
 import LiveChannelDetailView from './src/screens/LiveChannelDetailView';
 import RecordingsForChannel, { defaultScreenOptions } from './src/screens/RecordingsForChannel';
 import Recordings from './src/screens/Recordings';
+import CloseIcon from './src/components/CloseIcon';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -59,8 +60,23 @@ function Screens(props: any) {
       <Stack.Screen
         name="LiveChannelDetailView"
         options={{
+          headerShown: true,
+          // headerShadowVisible: false,
+          gestureEnabled: true,
+          gestureDirection: "vertical",
+          presentation: "transparentModal",
+          cardStyle: { backgroundColor: 'transparent' },
+          headerStyle: {
+            backgroundColor: "transparent",
+          },
+          headerBackTitleVisible: false,
+          headerBackImage: CloseIcon,
+          headerTintColor: "#7A00EE",
+          title: "",
           cardStyleInterpolator: Platform.OS === 'ios' ? 
           CardStyleInterpolators.forVerticalIOS  : CardStyleInterpolators.forBottomSheetAndroid,
+          headerStyleInterpolator: HeaderStyleInterpolators.forFade,
+          // headerMode: "screen"
         }}
         component={LiveChannelDetailView}
       />

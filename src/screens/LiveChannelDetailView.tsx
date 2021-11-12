@@ -28,7 +28,7 @@ export default function LiveChannelDetailView({ navigation, route,  }: Props) {
     return (
         <View style={styles.modalView}>
             <View style={styles.channelListItemDetailContainer}>
-                <CloseIcon style={styles.closeIcon} onPress={() => RootNavitaion.goBack()} />
+                {/* <CloseIcon style={styles.closeIcon} onPress={() => RootNavitaion.goBack()} /> */}
                 <ScrollView style={{ width: "100%" }} bounces={false}>
                     <ImageBackground source={{ uri: route.params.imageSrc }} resizeMode="cover" style={styles.imageBackground}>
                         <PlayIcon style={{ zIndex: 999 }} onPress={() => OpenPlayer(route.params.cid)} />
@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        marginTop: Platform.OS === 'ios' ? 80 : 0
     },
     channelListItemTouchableContainer: {
         width: "100%",
