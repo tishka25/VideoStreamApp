@@ -18,6 +18,11 @@
 		2DCD954D1E0B4F2C00145EB5 /* TVizioTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TVizioTests.m */; };
 		3C5B9C0275CC042B90392485 /* libPods-TVizio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57ACA17ECCDF4D50893E2AF7 /* libPods-TVizio.a */; };
 		41CFBDB4273F4201003ACEB3 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
+		41CFBDC2273F46E9003ACEB3 /* back-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 41CFBDBB273F46E8003ACEB3 /* back-icon@3x.png */; };
+		41CFBDC3273F46E9003ACEB3 /* back-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 41CFBDBC273F46E8003ACEB3 /* back-icon@2x.png */; };
+		41CFBDC4273F46E9003ACEB3 /* back-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 41CFBDBD273F46E8003ACEB3 /* back-icon.png */; };
+		41CFBDC5273F46E9003ACEB3 /* back-icon-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 41CFBDBE273F46E8003ACEB3 /* back-icon-mask.png */; };
+		41CFBDC6273F46E9003ACEB3 /* tvizio_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 41CFBDC1273F46E8003ACEB3 /* tvizio_logo.png */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		D1CE5E65D55DF308DB110B8E /* libPods-TVizio-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD140AEF8EE19BED65158C81 /* libPods-TVizio-tvOS.a */; };
 		FD1BCD224D9B812FF88F8645 /* libPods-TVizio-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA1FFD4D50B0067669DCAE8 /* libPods-TVizio-tvOSTests.a */; };
@@ -70,6 +75,11 @@
 		41BF4941273CA457001C6A13 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		41BF4942273CA457001C6A13 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		41BF4943273CA457001C6A13 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		41CFBDBB273F46E8003ACEB3 /* back-icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-icon@3x.png"; sourceTree = "<group>"; };
+		41CFBDBC273F46E8003ACEB3 /* back-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-icon@2x.png"; sourceTree = "<group>"; };
+		41CFBDBD273F46E8003ACEB3 /* back-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-icon.png"; sourceTree = "<group>"; };
+		41CFBDBE273F46E8003ACEB3 /* back-icon-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-icon-mask.png"; sourceTree = "<group>"; };
+		41CFBDC1273F46E8003ACEB3 /* tvizio_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tvizio_logo.png; sourceTree = "<group>"; };
 		4B5481EDC588D775A4A8B68B /* Pods-TVizio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TVizio.debug.xcconfig"; path = "Target Support Files/Pods-TVizio/Pods-TVizio.debug.xcconfig"; sourceTree = "<group>"; };
 		51889EEB52E7F6EA79385E29 /* libPods-TVizio-TVizioTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TVizio-TVizioTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57ACA17ECCDF4D50893E2AF7 /* libPods-TVizio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TVizio.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,9 +200,78 @@
 			path = "../node_modules/react-native-vector-icons/Fonts";
 			sourceTree = "<group>";
 		};
+		41CFBDB5273F46E8003ACEB3 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				41CFBDB6273F46E8003ACEB3 /* node_modules */,
+				41CFBDBF273F46E8003ACEB3 /* src */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		41CFBDB6273F46E8003ACEB3 /* node_modules */ = {
+			isa = PBXGroup;
+			children = (
+				41CFBDB7273F46E8003ACEB3 /* @react-navigation */,
+			);
+			path = node_modules;
+			sourceTree = "<group>";
+		};
+		41CFBDB7273F46E8003ACEB3 /* @react-navigation */ = {
+			isa = PBXGroup;
+			children = (
+				41CFBDB8273F46E8003ACEB3 /* elements */,
+			);
+			path = "@react-navigation";
+			sourceTree = "<group>";
+		};
+		41CFBDB8273F46E8003ACEB3 /* elements */ = {
+			isa = PBXGroup;
+			children = (
+				41CFBDB9273F46E8003ACEB3 /* src */,
+			);
+			path = elements;
+			sourceTree = "<group>";
+		};
+		41CFBDB9273F46E8003ACEB3 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				41CFBDBA273F46E8003ACEB3 /* assets */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		41CFBDBA273F46E8003ACEB3 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				41CFBDBB273F46E8003ACEB3 /* back-icon@3x.png */,
+				41CFBDBC273F46E8003ACEB3 /* back-icon@2x.png */,
+				41CFBDBD273F46E8003ACEB3 /* back-icon.png */,
+				41CFBDBE273F46E8003ACEB3 /* back-icon-mask.png */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		41CFBDBF273F46E8003ACEB3 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				41CFBDC0273F46E8003ACEB3 /* icons */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		41CFBDC0273F46E8003ACEB3 /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				41CFBDC1273F46E8003ACEB3 /* tvizio_logo.png */,
+			);
+			path = icons;
+			sourceTree = "<group>";
+		};
 		7A50A585E4414CBDAEA9AE9F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				41CFBDB5273F46E8003ACEB3 /* assets */,
 				41BF4933273CA456001C6A13 /* Fonts */,
 			);
 			name = Resources;
@@ -393,8 +472,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				41CFBDB4273F4201003ACEB3 /* main.jsbundle in Resources */,
+				41CFBDC2273F46E9003ACEB3 /* back-icon@3x.png in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				41CFBDC5273F46E9003ACEB3 /* back-icon-mask.png in Resources */,
+				41CFBDC3273F46E9003ACEB3 /* back-icon@2x.png in Resources */,
+				41CFBDC4273F46E9003ACEB3 /* back-icon.png in Resources */,
+				41CFBDC6273F46E9003ACEB3 /* tvizio_logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
