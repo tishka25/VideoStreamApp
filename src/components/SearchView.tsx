@@ -4,6 +4,7 @@ import channels, { RecordingItem } from "../utils/channels";
 import RecordingsList from "./RecordingsList";
 import * as RootNavitaion from "../rootNavigation";
 import LoadingIndicator from "./LoadingIndicator";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Props {
     searchQuery: string;
@@ -20,6 +21,7 @@ export default function SearchView(props: Props) {
     }
 
     useEffect(()=>{
+        setLoading(true);
         loadData();
     }, [props.searchQuery]);
 
@@ -45,14 +47,12 @@ export default function SearchView(props: Props) {
     }
 
     return (
-            loading ? <LoadingIndicator/> : renderRecordings()
+        loading ? <LoadingIndicator/> : renderRecordings()
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "black",
-        width: "100%",
-        height:"100%"
     }
 })
