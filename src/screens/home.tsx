@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Platform, RefreshControl, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 //@ts-ignore
@@ -6,12 +6,14 @@ import Orientation from 'react-native-orientation';
 import CarouselView, { ICarouselViewItem } from '../components/CarouselView';
 import network from '../utils/network';
 import LoadingIndicator from '../components/LoadingIndicator';
-import { getPrettyDateString, getScreenshotUrl, throttle } from '../utils/utils';
+import { getPrettyDateString, getScreenshotUrl } from '../utils/utils';
 import LiveChannelList from '../components/LiveChannelList';
 import * as RootNavitaion from "../rootNavigation";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { normalize } from '../utils/normalize';
 import SearchView from '../components/SearchView';
+import CloseIcon from '../components/CloseIcon';
+import * as _ from "underscore";
 
 
 export default function Home(props: any) {
@@ -21,6 +23,7 @@ export default function Home(props: any) {
 
     const [historyList, setHistoryList] = useState<ICarouselViewItem[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
+    const [searchInput, setSearchInput] = useState("");
 
     const [refreshing, setRefreshing] = React.useState(false);
     const onRefresh = React.useCallback(() => {
@@ -63,21 +66,29 @@ export default function Home(props: any) {
     }
 
     function handleSearchQuery(e: string){
-        throttle(()=>setSearchQuery(e), 1000);
-        // if(e.length > 3){
-        //     setIsSearching(true);
-        // }else{
-        //     setIsSearching(false);
-        // }
+        setSearchQuery(e);
+        console.log("Settings stae:",e);
+    }
+
+    const handleSearchQueryThrottled = useRef(_.throttle(handleSearchQuery, 1000, { leading: false })).current;
+
+    function handleSearchInput(e: string){
+        setSearchInput(e);
+        handleSearchQueryThrottled(e);
+    }
+
+    function handleClearSearchQuery(){
+        setSearchQuery("");
+        setSearchInput("");
     }
 
     function getIsSearching(){
-        return searchQuery.length >= 3;
+        return searchInput.length >= 3;
     }
 
     function renderSearchBox(){
         return (
-            <View>
+            <View style={{marginBottom: 8}}>
                 <SafeAreaView style={{ marginTop: Platform.OS == 'android' ? 16 : 0 }}/>
                 <View style={styles.searchBoxContainer}>
                     <TextInput
@@ -85,8 +96,16 @@ export default function Home(props: any) {
                         placeholderTextColor="#666"
                         style={styles.searchBox}
                         numberOfLines={1}
-                        onChangeText={handleSearchQuery}
+                        value={searchInput}
+                        onChangeText={handleSearchInput}
                     />
+                    { searchInput.length > 0 &&
+                    <CloseIcon 
+                        tintColor="black" 
+                        size={20}
+                        style={{ position: "absolute", right: 16, top: 16 }}
+                        onPress={handleClearSearchQuery}
+                    />}
                 </View>
             </View>
         )
