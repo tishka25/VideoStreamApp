@@ -120,7 +120,7 @@ export default function Player({ navigation, route }: Props) {
         controls={false}
         muted={false}
         ignoreSilentSwitch={"ignore"}
-        resizeMode={fullscreen ? "cover" : "contain"}
+        resizeMode={fullscreen ? "contain" : "cover"}
         /> :
         <LoadingIndicator />
       }
